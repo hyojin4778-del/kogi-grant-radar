@@ -1,0 +1,13 @@
+# Render.com Blueprint — https://render.com/docs/blueprint-spec
+# GitHub 저장소를 Render에 연결하면 이 파일을 자동으로 인식해서
+# 아래 설정대로 Web Service를 만들어줍니다 (수동 설정도 동일하게 가능).
+services:
+  - type: web
+    name: kogi-grant-radar
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 20
