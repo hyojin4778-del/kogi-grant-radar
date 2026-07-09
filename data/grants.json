@@ -1,0 +1,1527 @@
+{
+  "lastUpdated": "2026-07-09T02:28:03.997Z",
+  "dataSource": "live",
+  "message": null,
+  "grants": [
+    {
+      "id": "kstartup-178427",
+      "title": "2026 서울테크서밋: AI x Bio 포럼",
+      "organization": "서울경제진흥원",
+      "sourceName": "K-Startup",
+      "sourceUrl": "https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do",
+      "originalNoticeUrl": "https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&pbancSn=178427",
+      "region": [],
+      "startupStage": [],
+      "supportType": [
+        "행사ㆍ네트워크"
+      ],
+      "supportAmount": "확인 필요",
+      "applicationStartDate": "2026-07-03",
+      "applicationEndDate": "2026-07-16",
+      "dDay": null,
+      "target": "확인 필요",
+      "description": "[공공] 지원분야: 행사ㆍ네트워크 · 등록일자: 2026-07-07 · 조회수: 1,244",
+      "requirements": [
+        "확인 필요"
+      ],
+      "documents": [
+        "확인 필요"
+      ],
+      "contact": "확인 필요",
+      "dataStatus": "needs_review",
+      "verifiedAt": "2026-07-09T02:28:03.986Z",
+      "deadlineStatus": null,
+      "summary": "[공공] 지원분야: 행사ㆍ네트워크 · 마감일: 2026-07-16",
+      "fitScore": 57,
+      "scoreBreakdown": {
+        "region": {
+          "score": 20,
+          "max": 20
+        },
+        "stage": {
+          "score": 12,
+          "max": 25
+        },
+        "support": {
+          "score": 8,
+          "max": 25
+        },
+        "item": {
+          "score": 10,
+          "max": 20
+        },
+        "readiness": {
+          "score": 7,
+          "max": 10
+        }
+      },
+      "recommendation": "보류",
+      "recommendationReason": "관련성이 낮거나 현재 준비 가능성이 낮아 보류로 분류했습니다.",
+      "matchReasons": [
+        "선호 지역(서울·경기·인천)과 일치합니다."
+      ],
+      "riskFlags": [
+        "관련성이 낮거나 현재 준비 가능성이 낮아 보류로 분류했습니다.",
+        "행사·네트워크성 지원으로 직접적인 자금 지원과는 거리가 있습니다.",
+        "관심 지원분야와의 직접 연관 여부가 불명확합니다.",
+        "목록 페이지에서 사업자등록 필요 여부를 확인할 수 없습니다.",
+        "지원금/예산 정보가 목록에 없어 상세 공고 확인이 필요합니다."
+      ],
+      "whyReasons": [
+        "선호 지역(서울·경기·인천)과 일치합니다."
+      ],
+      "risks": [
+        "관련성이 낮거나 현재 준비 가능성이 낮아 보류로 분류했습니다.",
+        "행사·네트워크성 지원으로 직접적인 자금 지원과는 거리가 있습니다.",
+        "관심 지원분야와의 직접 연관 여부가 불명확합니다.",
+        "목록 페이지에서 사업자등록 필요 여부를 확인할 수 없습니다.",
+        "지원금/예산 정보가 목록에 없어 상세 공고 확인이 필요합니다."
+      ],
+      "conditionsToCheck": [
+        {
+          "label": "사업자등록 필요 여부",
+          "value": "확인 필요"
+        },
+        {
+          "label": "업력 조건",
+          "value": "확인 필요"
+        },
+        {
+          "label": "지역 조건",
+          "value": "확인 필요"
+        },
+        {
+          "label": "자부담 여부",
+          "value": "확인 필요"
+        },
+        {
+          "label": "선정 후 의무사항",
+          "value": "확인 필요"
+        }
+      ],
+      "strategy": [
+        "확인 필요"
+      ]
+    },
+    {
+      "id": "kstartup-178430",
+      "title": "2026년 서울창업허브 공덕 추천선발 입주기업 모집",
+      "organization": "서울경제진흥원",
+      "sourceName": "K-Startup",
+      "sourceUrl": "https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do",
+      "originalNoticeUrl": "https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&pbancSn=178430",
+      "region": [],
+      "startupStage": [],
+      "supportType": [
+        "시설ㆍ공간ㆍ보육"
+      ],
+      "supportAmount": "확인 필요",
+      "applicationStartDate": "2026-07-06",
+      "applicationEndDate": "2026-07-16",
+      "dDay": null,
+      "target": "확인 필요",
+      "description": "[공공] 지원분야: 시설ㆍ공간ㆍ보육 · 등록일자: 2026-07-07 · 조회수: 1,389",
+      "requirements": [
+        "확인 필요"
+      ],
+      "documents": [
+        "확인 필요"
+      ],
+      "contact": "확인 필요",
+      "dataStatus": "needs_review",
+      "verifiedAt": "2026-07-09T02:28:03.989Z",
+      "deadlineStatus": null,
+      "summary": "[공공] 지원분야: 시설ㆍ공간ㆍ보육 · 마감일: 2026-07-16",
+      "fitScore": 65,
+      "scoreBreakdown": {
+        "region": {
+          "score": 20,
+          "max": 20
+        },
+        "stage": {
+          "score": 10,
+          "max": 25
+        },
+        "support": {
+          "score": 18,
+          "max": 25
+        },
+        "item": {
+          "score": 10,
+          "max": 20
+        },
+        "readiness": {
+          "score": 7,
+          "max": 10
+        }
+      },
+      "recommendation": "제외",
+      "recommendationReason": "이미 사업자등록을 마친 기업 전용으로 보이는데 현재 사업자 등록 전이라 신청 자격이 없어 제외했습니다.",
+      "matchReasons": [
+        "선호 지역(서울·경기·인천)과 일치합니다.",
+        "창업공간 지원으로 관심 지원분야와 일치합니다."
+      ],
+      "riskFlags": [
+        "이미 사업자등록을 마친 기업 전용으로 보이는데 현재 사업자 등록 전이라 신청 자격이 없어 제외했습니다.",
+        "이미 사업자등록을 마친 기업(입주기업 등) 대상으로 보여 현재 단계에는 불리할 수 있습니다.",
+        "관심 지원분야와의 직접 연관 여부가 불명확합니다.",
+        "목록 페이지에서 사업자등록 필요 여부를 확인할 수 없습니다.",
+        "지원금/예산 정보가 목록에 없어 상세 공고 확인이 필요합니다."
+      ],
+      "whyReasons": [
+        "선호 지역(서울·경기·인천)과 일치합니다.",
+        "창업공간 지원으로 관심 지원분야와 일치합니다."
+      ],
+      "risks": [
+        "이미 사업자등록을 마친 기업 전용으로 보이는데 현재 사업자 등록 전이라 신청 자격이 없어 제외했습니다.",
+        "이미 사업자등록을 마친 기업(입주기업 등) 대상으로 보여 현재 단계에는 불리할 수 있습니다.",
+        "관심 지원분야와의 직접 연관 여부가 불명확합니다.",
+        "목록 페이지에서 사업자등록 필요 여부를 확인할 수 없습니다.",
+        "지원금/예산 정보가 목록에 없어 상세 공고 확인이 필요합니다."
+      ],
+      "conditionsToCheck": [
+        {
+          "label": "사업자등록 필요 여부",
+          "value": "확인 필요"
+        },
+        {
+          "label": "업력 조건",
+          "value": "확인 필요"
+        },
+        {
+          "label": "지역 조건",
+          "value": "확인 필요"
+        },
+        {
+          "label": "자부담 여부",
+          "value": "확인 필요"
+        },
+        {
+          "label": "선정 후 의무사항",
+          "value": "확인 필요"
+        }
+      ],
+      "strategy": [
+        "확인 필요"
+      ]
+    },
+    {
+      "id": "kstartup-178446",
+      "title": "2026 지역창업 페스티벌 연계 제105회 대전창업포럼(바이오) 참가 모집",
+      "organization": "대전창조경제혁신센터",
+      "sourceName": "K-Startup",
+      "sourceUrl": "https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do",
+      "originalNoticeUrl": "https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&pbancSn=178446",
+      "region": [],
+      "startupStage": [],
+      "supportType": [
+        "행사ㆍ네트워크"
+      ],
+      "supportAmount": "확인 필요",
+      "applicationStartDate": "2026-07-06",
+      "applicationEndDate": "2026-07-20",
+      "dDay": null,
+      "target": "확인 필요",
+      "description": "[공공] 지원분야: 행사ㆍ네트워크 · 등록일자: 2026-07-07 · 조회수: 990",
+      "requirements": [
+        "확인 필요"
+      ],
+      "documents": [
+        "확인 필요"
+      ],
+      "contact": "확인 필요",
+      "dataStatus": "needs_review",
+      "verifiedAt": "2026-07-09T02:28:03.990Z",
+      "deadlineStatus": null,
+      "summary": "[공공] 지원분야: 행사ㆍ네트워크 · 마감일: 2026-07-20",
+      "fitScore": 35,
+      "scoreBreakdown": {
+        "region": {
+          "score": 2,
+          "max": 20
+        },
+        "stage": {
+          "score": 12,
+          "max": 25
+        },
+        "support": {
+          "score": 8,
+          "max": 25
+        },
+        "item": {
+          "score": 6,
+          "max": 20
+        },
+        "readiness": {
+          "score": 7,
+          "max": 10
+        }
+      },
+      "recommendation": "제외",
+      "recommendationReason": "점수가 낮아 우선순위와 맞지 않는 것으로 보여 제외로 분류했습니다.",
+      "matchReasons": [
+        "현재 확인된 긍정적 근거가 없어, 상세 공고 확인이 필요합니다."
+      ],
+      "riskFlags": [
+        "점수가 낮아 우선순위와 맞지 않는 것으로 보여 제외로 분류했습니다.",
+        "서울·경기·인천 외 지역으로 추정되어 선호 지역과 거리가 있어 확인이 필요합니다.",
+        "행사·네트워크성 지원으로 직접적인 자금 지원과는 거리가 있습니다.",
+        "다른 특정 산업(바이오/소프트웨어 등) 대상으로 보여 하드웨어 소비재와는 결이 다릅니다.",
+        "목록 페이지에서 사업자등록 필요 여부를 확인할 수 없습니다.",
+        "지원금/예산 정보가 목록에 없어 상세 공고 확인이 필요합니다."
+      ],
+      "whyReasons": [
+        "현재 확인된 긍정적 근거가 없어, 상세 공고 확인이 필요합니다."
+      ],
+      "risks": [
+        "점수가 낮아 우선순위와 맞지 않는 것으로 보여 제외로 분류했습니다.",
+        "서울·경기·인천 외 지역으로 추정되어 선호 지역과 거리가 있어 확인이 필요합니다.",
+        "행사·네트워크성 지원으로 직접적인 자금 지원과는 거리가 있습니다.",
+        "다른 특정 산업(바이오/소프트웨어 등) 대상으로 보여 하드웨어 소비재와는 결이 다릅니다.",
+        "목록 페이지에서 사업자등록 필요 여부를 확인할 수 없습니다.",
+        "지원금/예산 정보가 목록에 없어 상세 공고 확인이 필요합니다."
+      ],
+      "conditionsToCheck": [
+        {
+          "label": "사업자등록 필요 여부",
+          "value": "확인 필요"
+        },
+        {
+          "label": "업력 조건",
+          "value": "확인 필요"
+        },
+        {
+          "label": "지역 조건",
+          "value": "확인 필요"
+        },
+        {
+          "label": "자부담 여부",
+          "value": "확인 필요"
+        },
+        {
+          "label": "선정 후 의무사항",
+          "value": "확인 필요"
+        }
+      ],
+      "strategy": [
+        "확인 필요"
+      ]
+    },
+    {
+      "id": "kstartup-178438",
+      "title": "NOROO Industrial Bio CONNECT 2026 오픈이노베이션 프로그램",
+      "organization": "(주)아이비유",
+      "sourceName": "K-Startup",
+      "sourceUrl": "https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do",
+      "originalNoticeUrl": "https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&pbancSn=178438",
+      "region": [],
+      "startupStage": [],
+      "supportType": [
+        "사업화"
+      ],
+      "supportAmount": "확인 필요",
+      "applicationStartDate": "2026-07-07",
+      "applicationEndDate": "2026-07-31",
+      "dDay": null,
+      "target": "확인 필요",
+      "description": "[민간] 지원분야: 사업화 · 등록일자: 2026-07-07 · 조회수: 1,151",
+      "requirements": [
+        "확인 필요"
+      ],
+      "documents": [
+        "확인 필요"
+      ],
+      "contact": "확인 필요",
+      "dataStatus": "needs_review",
+      "verifiedAt": "2026-07-09T02:28:03.990Z",
+      "deadlineStatus": null,
+      "summary": "[민간] 지원분야: 사업화 · 마감일: 2026-07-31",
+      "fitScore": 61,
+      "scoreBreakdown": {
+        "region": {
+          "score": 10,
+          "max": 20
+        },
+        "stage": {
+          "score": 12,
+          "max": 25
+        },
+        "support": {
+          "score": 22,
+          "max": 25
+        },
+        "item": {
+          "score": 10,
+          "max": 20
+        },
+        "readiness": {
+          "score": 7,
+          "max": 10
+        }
+      },
+      "recommendation": "조건 확인",
+      "recommendationReason": "일부 조건은 맞지만 지원금·사업자등록·상세 지원내용 확인이 필요해 조건 확인으로 분류했습니다.",
+      "matchReasons": [
+        "전국 대상일 가능성이 있어 신청 가능성 검토가 필요합니다.",
+        "사업화 성격의 공고로 시제품 제작·R&D·마케팅 등에 폭넓게 연결 가능합니다."
+      ],
+      "riskFlags": [
+        "일부 조건은 맞지만 지원금·사업자등록·상세 지원내용 확인이 필요해 조건 확인으로 분류했습니다.",
+        "관심 지원분야와의 직접 연관 여부가 불명확합니다.",
+        "목록 페이지에서 사업자등록 필요 여부를 확인할 수 없습니다.",
+        "지원금/예산 정보가 목록에 없어 상세 공고 확인이 필요합니다."
+      ],
+      "whyReasons": [
+        "전국 대상일 가능성이 있어 신청 가능성 검토가 필요합니다.",
+        "사업화 성격의 공고로 시제품 제작·R&D·마케팅 등에 폭넓게 연결 가능합니다."
+      ],
+      "risks": [
+        "일부 조건은 맞지만 지원금·사업자등록·상세 지원내용 확인이 필요해 조건 확인으로 분류했습니다.",
+        "관심 지원분야와의 직접 연관 여부가 불명확합니다.",
+        "목록 페이지에서 사업자등록 필요 여부를 확인할 수 없습니다.",
+        "지원금/예산 정보가 목록에 없어 상세 공고 확인이 필요합니다."
+      ],
+      "conditionsToCheck": [
+        {
+          "label": "사업자등록 필요 여부",
+          "value": "확인 필요"
+        },
+        {
+          "label": "업력 조건",
+          "value": "확인 필요"
+        },
+        {
+          "label": "지역 조건",
+          "value": "확인 필요"
+        },
+        {
+          "label": "자부담 여부",
+          "value": "확인 필요"
+        },
+        {
+          "label": "선정 후 의무사항",
+          "value": "확인 필요"
+        }
+      ],
+      "strategy": [
+        "확인 필요"
+      ]
+    },
+    {
+      "id": "kstartup-178439",
+      "title": "2026년 대전 스타트업스쿨 스타트업 리딩클래스 (2회차 ㅣ 링크드인 Sales 1위가 알려주는 퍼스널 브랜딩의 핵심 노하우와 B2B 매출 플레이북 실전 사례)",
+      "organization": "대전창조경제혁신센터",
+      "sourceName": "K-Startup",
+      "sourceUrl": "https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do",
+      "originalNoticeUrl": "https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&pbancSn=178439",
+      "region": [],
+      "startupStage": [],
+      "supportType": [
+        "행사ㆍ네트워크"
+      ],
+      "supportAmount": "확인 필요",
+      "applicationStartDate": "2026-07-06",
+      "applicationEndDate": "2026-07-28",
+      "dDay": null,
+      "target": "확인 필요",
+      "description": "[공공] 지원분야: 행사ㆍ네트워크 · 등록일자: 2026-07-07 · 조회수: 886",
+      "requirements": [
+        "확인 필요"
+      ],
+      "documents": [
+        "확인 필요"
+      ],
+      "contact": "확인 필요",
+      "dataStatus": "needs_review",
+      "verifiedAt": "2026-07-09T02:28:03.991Z",
+      "deadlineStatus": null,
+      "summary": "[공공] 지원분야: 행사ㆍ네트워크 · 마감일: 2026-07-28",
+      "fitScore": 47,
+      "scoreBreakdown": {
+        "region": {
+          "score": 2,
+          "max": 20
+        },
+        "stage": {
+          "score": 12,
+          "max": 25
+        },
+        "support": {
+          "score": 8,
+          "max": 25
+        },
+        "item": {
+          "score": 18,
+          "max": 20
+        },
+        "readiness": {
+          "score": 7,
+          "max": 10
+        }
+      },
+      "recommendation": "보류",
+      "recommendationReason": "관련성이 낮거나 현재 준비 가능성이 낮아 보류로 분류했습니다.",
+      "matchReasons": [
+        "관심 지원분야(브랜딩)와 관련된 키워드가 있어 KOGI와 결이 맞습니다."
+      ],
+      "riskFlags": [
+        "관련성이 낮거나 현재 준비 가능성이 낮아 보류로 분류했습니다.",
+        "서울·경기·인천 외 지역으로 추정되어 선호 지역과 거리가 있어 확인이 필요합니다.",
+        "행사·네트워크성 지원으로 직접적인 자금 지원과는 거리가 있습니다.",
+        "목록 페이지에서 사업자등록 필요 여부를 확인할 수 없습니다.",
+        "지원금/예산 정보가 목록에 없어 상세 공고 확인이 필요합니다."
+      ],
+      "whyReasons": [
+        "관심 지원분야(브랜딩)와 관련된 키워드가 있어 KOGI와 결이 맞습니다."
+      ],
+      "risks": [
+        "관련성이 낮거나 현재 준비 가능성이 낮아 보류로 분류했습니다.",
+        "서울·경기·인천 외 지역으로 추정되어 선호 지역과 거리가 있어 확인이 필요합니다.",
+        "행사·네트워크성 지원으로 직접적인 자금 지원과는 거리가 있습니다.",
+        "목록 페이지에서 사업자등록 필요 여부를 확인할 수 없습니다.",
+        "지원금/예산 정보가 목록에 없어 상세 공고 확인이 필요합니다."
+      ],
+      "conditionsToCheck": [
+        {
+          "label": "사업자등록 필요 여부",
+          "value": "확인 필요"
+        },
+        {
+          "label": "업력 조건",
+          "value": "확인 필요"
+        },
+        {
+          "label": "지역 조건",
+          "value": "확인 필요"
+        },
+        {
+          "label": "자부담 여부",
+          "value": "확인 필요"
+        },
+        {
+          "label": "선정 후 의무사항",
+          "value": "확인 필요"
+        }
+      ],
+      "strategy": [
+        "확인 필요"
+      ]
+    },
+    {
+      "id": "kstartup-178299",
+      "title": "성남창업센터(판교역 창업카페, 코워킹스페이스) 입주기업 모집 공고",
+      "organization": "성남산업진흥원",
+      "sourceName": "K-Startup",
+      "sourceUrl": "https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do",
+      "originalNoticeUrl": "https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&pbancSn=178299",
+      "region": [],
+      "startupStage": [],
+      "supportType": [
+        "시설ㆍ공간ㆍ보육"
+      ],
+      "supportAmount": "확인 필요",
+      "applicationStartDate": "2026-06-26",
+      "applicationEndDate": "2026-07-13",
+      "dDay": null,
+      "target": "확인 필요",
+      "description": "[지자체] 지원분야: 시설ㆍ공간ㆍ보육 · 등록일자: 2026-07-07 · 조회수: 919",
+      "requirements": [
+        "확인 필요"
+      ],
+      "documents": [
+        "확인 필요"
+      ],
+      "contact": "확인 필요",
+      "dataStatus": "needs_review",
+      "verifiedAt": "2026-07-09T02:28:03.991Z",
+      "deadlineStatus": null,
+      "summary": "[지자체] 지원분야: 시설ㆍ공간ㆍ보육 · 마감일: 2026-07-13",
+      "fitScore": 52,
+      "scoreBreakdown": {
+        "region": {
+          "score": 10,
+          "max": 20
+        },
+        "stage": {
+          "score": 10,
+          "max": 25
+        },
+        "support": {
+          "score": 18,
+          "max": 25
+        },
+        "item": {
+          "score": 10,
+          "max": 20
+        },
+        "readiness": {
+          "score": 4,
+          "max": 10
+        }
+      },
+      "recommendation": "제외",
+      "recommendationReason": "이미 사업자등록을 마친 기업 전용으로 보이는데 현재 사업자 등록 전이라 신청 자격이 없어 제외했습니다.",
+      "matchReasons": [
+        "전국 대상일 가능성이 있어 신청 가능성 검토가 필요합니다.",
+        "창업공간 지원으로 관심 지원분야와 일치합니다."
+      ],
+      "riskFlags": [
+        "이미 사업자등록을 마친 기업 전용으로 보이는데 현재 사업자 등록 전이라 신청 자격이 없어 제외했습니다.",
+        "이미 사업자등록을 마친 기업(입주기업 등) 대상으로 보여 현재 단계에는 불리할 수 있습니다.",
+        "관심 지원분야와의 직접 연관 여부가 불명확합니다.",
+        "마감까지 4일 이내로 임박해 서류 준비 시간이 부족할 수 있습니다.",
+        "목록 페이지에서 사업자등록 필요 여부를 확인할 수 없습니다.",
+        "지원금/예산 정보가 목록에 없어 상세 공고 확인이 필요합니다."
+      ],
+      "whyReasons": [
+        "전국 대상일 가능성이 있어 신청 가능성 검토가 필요합니다.",
+        "창업공간 지원으로 관심 지원분야와 일치합니다."
+      ],
+      "risks": [
+        "이미 사업자등록을 마친 기업 전용으로 보이는데 현재 사업자 등록 전이라 신청 자격이 없어 제외했습니다.",
+        "이미 사업자등록을 마친 기업(입주기업 등) 대상으로 보여 현재 단계에는 불리할 수 있습니다.",
+        "관심 지원분야와의 직접 연관 여부가 불명확합니다.",
+        "마감까지 4일 이내로 임박해 서류 준비 시간이 부족할 수 있습니다.",
+        "목록 페이지에서 사업자등록 필요 여부를 확인할 수 없습니다.",
+        "지원금/예산 정보가 목록에 없어 상세 공고 확인이 필요합니다."
+      ],
+      "conditionsToCheck": [
+        {
+          "label": "사업자등록 필요 여부",
+          "value": "확인 필요"
+        },
+        {
+          "label": "업력 조건",
+          "value": "확인 필요"
+        },
+        {
+          "label": "지역 조건",
+          "value": "확인 필요"
+        },
+        {
+          "label": "자부담 여부",
+          "value": "확인 필요"
+        },
+        {
+          "label": "선정 후 의무사항",
+          "value": "확인 필요"
+        }
+      ],
+      "strategy": [
+        "확인 필요"
+      ]
+    },
+    {
+      "id": "kstartup-178442",
+      "title": "[제주창조경제혁신센터] 2026 친환경 에너지 오픈 그라운드 프로그램 with 한화솔루션",
+      "organization": "제주창조경제혁신센터",
+      "sourceName": "K-Startup",
+      "sourceUrl": "https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do",
+      "originalNoticeUrl": "https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&pbancSn=178442",
+      "region": [],
+      "startupStage": [],
+      "supportType": [
+        "사업화"
+      ],
+      "supportAmount": "확인 필요",
+      "applicationStartDate": "2026-07-06",
+      "applicationEndDate": "2026-07-10",
+      "dDay": null,
+      "target": "확인 필요",
+      "description": "[공공] 지원분야: 사업화 · 등록일자: 2026-07-07 · 조회수: 922",
+      "requirements": [
+        "확인 필요"
+      ],
+      "documents": [
+        "확인 필요"
+      ],
+      "contact": "확인 필요",
+      "dataStatus": "needs_review",
+      "verifiedAt": "2026-07-09T02:28:03.992Z",
+      "deadlineStatus": null,
+      "summary": "[공공] 지원분야: 사업화 · 마감일: 2026-07-10",
+      "fitScore": 50,
+      "scoreBreakdown": {
+        "region": {
+          "score": 2,
+          "max": 20
+        },
+        "stage": {
+          "score": 12,
+          "max": 25
+        },
+        "support": {
+          "score": 22,
+          "max": 25
+        },
+        "item": {
+          "score": 10,
+          "max": 20
+        },
+        "readiness": {
+          "score": 4,
+          "max": 10
+        }
+      },
+      "recommendation": "보류",
+      "recommendationReason": "관련성이 낮거나 현재 준비 가능성이 낮아 보류로 분류했습니다.",
+      "matchReasons": [
+        "사업화 성격의 공고로 시제품 제작·R&D·마케팅 등에 폭넓게 연결 가능합니다."
+      ],
+      "riskFlags": [
+        "관련성이 낮거나 현재 준비 가능성이 낮아 보류로 분류했습니다.",
+        "서울·경기·인천 외 지역으로 추정되어 선호 지역과 거리가 있어 확인이 필요합니다.",
+        "관심 지원분야와의 직접 연관 여부가 불명확합니다.",
+        "마감까지 1일 이내로 임박해 서류 준비 시간이 부족할 수 있습니다.",
+        "목록 페이지에서 사업자등록 필요 여부를 확인할 수 없습니다.",
+        "지원금/예산 정보가 목록에 없어 상세 공고 확인이 필요합니다."
+      ],
+      "whyReasons": [
+        "사업화 성격의 공고로 시제품 제작·R&D·마케팅 등에 폭넓게 연결 가능합니다."
+      ],
+      "risks": [
+        "관련성이 낮거나 현재 준비 가능성이 낮아 보류로 분류했습니다.",
+        "서울·경기·인천 외 지역으로 추정되어 선호 지역과 거리가 있어 확인이 필요합니다.",
+        "관심 지원분야와의 직접 연관 여부가 불명확합니다.",
+        "마감까지 1일 이내로 임박해 서류 준비 시간이 부족할 수 있습니다.",
+        "목록 페이지에서 사업자등록 필요 여부를 확인할 수 없습니다.",
+        "지원금/예산 정보가 목록에 없어 상세 공고 확인이 필요합니다."
+      ],
+      "conditionsToCheck": [
+        {
+          "label": "사업자등록 필요 여부",
+          "value": "확인 필요"
+        },
+        {
+          "label": "업력 조건",
+          "value": "확인 필요"
+        },
+        {
+          "label": "지역 조건",
+          "value": "확인 필요"
+        },
+        {
+          "label": "자부담 여부",
+          "value": "확인 필요"
+        },
+        {
+          "label": "선정 후 의무사항",
+          "value": "확인 필요"
+        }
+      ],
+      "strategy": [
+        "확인 필요"
+      ]
+    },
+    {
+      "id": "kstartup-178452",
+      "title": "2026년 해양수산 창업투자지원사업 제4차 참여기업 모집공고",
+      "organization": "(재)환동해산업연구원",
+      "sourceName": "K-Startup",
+      "sourceUrl": "https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do",
+      "originalNoticeUrl": "https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&pbancSn=178452",
+      "region": [],
+      "startupStage": [],
+      "supportType": [
+        "사업화"
+      ],
+      "supportAmount": "확인 필요",
+      "applicationStartDate": "2026-07-06",
+      "applicationEndDate": "2026-07-24",
+      "dDay": null,
+      "target": "확인 필요",
+      "description": "[공공] 지원분야: 사업화 · 등록일자: 2026-07-07 · 조회수: 998",
+      "requirements": [
+        "확인 필요"
+      ],
+      "documents": [
+        "확인 필요"
+      ],
+      "contact": "확인 필요",
+      "dataStatus": "needs_review",
+      "verifiedAt": "2026-07-09T02:28:03.992Z",
+      "deadlineStatus": null,
+      "summary": "[공공] 지원분야: 사업화 · 마감일: 2026-07-24",
+      "fitScore": 61,
+      "scoreBreakdown": {
+        "region": {
+          "score": 10,
+          "max": 20
+        },
+        "stage": {
+          "score": 12,
+          "max": 25
+        },
+        "support": {
+          "score": 22,
+          "max": 25
+        },
+        "item": {
+          "score": 10,
+          "max": 20
+        },
+        "readiness": {
+          "score": 7,
+          "max": 10
+        }
+      },
+      "recommendation": "조건 확인",
+      "recommendationReason": "일부 조건은 맞지만 지원금·사업자등록·상세 지원내용 확인이 필요해 조건 확인으로 분류했습니다.",
+      "matchReasons": [
+        "전국 대상일 가능성이 있어 신청 가능성 검토가 필요합니다.",
+        "사업화 성격의 공고로 시제품 제작·R&D·마케팅 등에 폭넓게 연결 가능합니다."
+      ],
+      "riskFlags": [
+        "일부 조건은 맞지만 지원금·사업자등록·상세 지원내용 확인이 필요해 조건 확인으로 분류했습니다.",
+        "관심 지원분야와의 직접 연관 여부가 불명확합니다.",
+        "목록 페이지에서 사업자등록 필요 여부를 확인할 수 없습니다.",
+        "지원금/예산 정보가 목록에 없어 상세 공고 확인이 필요합니다."
+      ],
+      "whyReasons": [
+        "전국 대상일 가능성이 있어 신청 가능성 검토가 필요합니다.",
+        "사업화 성격의 공고로 시제품 제작·R&D·마케팅 등에 폭넓게 연결 가능합니다."
+      ],
+      "risks": [
+        "일부 조건은 맞지만 지원금·사업자등록·상세 지원내용 확인이 필요해 조건 확인으로 분류했습니다.",
+        "관심 지원분야와의 직접 연관 여부가 불명확합니다.",
+        "목록 페이지에서 사업자등록 필요 여부를 확인할 수 없습니다.",
+        "지원금/예산 정보가 목록에 없어 상세 공고 확인이 필요합니다."
+      ],
+      "conditionsToCheck": [
+        {
+          "label": "사업자등록 필요 여부",
+          "value": "확인 필요"
+        },
+        {
+          "label": "업력 조건",
+          "value": "확인 필요"
+        },
+        {
+          "label": "지역 조건",
+          "value": "확인 필요"
+        },
+        {
+          "label": "자부담 여부",
+          "value": "확인 필요"
+        },
+        {
+          "label": "선정 후 의무사항",
+          "value": "확인 필요"
+        }
+      ],
+      "strategy": [
+        "확인 필요"
+      ]
+    },
+    {
+      "id": "kstartup-178444",
+      "title": "2026년 그린바이오 분야 공공기술 상용화 지원사업 추가 모집 공고",
+      "organization": "한국농업기술진흥원",
+      "sourceName": "K-Startup",
+      "sourceUrl": "https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do",
+      "originalNoticeUrl": "https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&pbancSn=178444",
+      "region": [],
+      "startupStage": [],
+      "supportType": [
+        "사업화"
+      ],
+      "supportAmount": "확인 필요",
+      "applicationStartDate": "2026-07-06",
+      "applicationEndDate": "2026-07-10",
+      "dDay": null,
+      "target": "확인 필요",
+      "description": "[공공] 지원분야: 사업화 · 등록일자: 2026-07-07 · 조회수: 923",
+      "requirements": [
+        "확인 필요"
+      ],
+      "documents": [
+        "확인 필요"
+      ],
+      "contact": "확인 필요",
+      "dataStatus": "needs_review",
+      "verifiedAt": "2026-07-09T02:28:03.993Z",
+      "deadlineStatus": null,
+      "summary": "[공공] 지원분야: 사업화 · 마감일: 2026-07-10",
+      "fitScore": 54,
+      "scoreBreakdown": {
+        "region": {
+          "score": 10,
+          "max": 20
+        },
+        "stage": {
+          "score": 12,
+          "max": 25
+        },
+        "support": {
+          "score": 22,
+          "max": 25
+        },
+        "item": {
+          "score": 6,
+          "max": 20
+        },
+        "readiness": {
+          "score": 4,
+          "max": 10
+        }
+      },
+      "recommendation": "보류",
+      "recommendationReason": "관련성이 낮거나 현재 준비 가능성이 낮아 보류로 분류했습니다.",
+      "matchReasons": [
+        "전국 대상일 가능성이 있어 신청 가능성 검토가 필요합니다.",
+        "사업화 성격의 공고로 시제품 제작·R&D·마케팅 등에 폭넓게 연결 가능합니다."
+      ],
+      "riskFlags": [
+        "관련성이 낮거나 현재 준비 가능성이 낮아 보류로 분류했습니다.",
+        "다른 특정 산업(바이오/소프트웨어 등) 대상으로 보여 하드웨어 소비재와는 결이 다릅니다.",
+        "마감까지 1일 이내로 임박해 서류 준비 시간이 부족할 수 있습니다.",
+        "목록 페이지에서 사업자등록 필요 여부를 확인할 수 없습니다.",
+        "지원금/예산 정보가 목록에 없어 상세 공고 확인이 필요합니다."
+      ],
+      "whyReasons": [
+        "전국 대상일 가능성이 있어 신청 가능성 검토가 필요합니다.",
+        "사업화 성격의 공고로 시제품 제작·R&D·마케팅 등에 폭넓게 연결 가능합니다."
+      ],
+      "risks": [
+        "관련성이 낮거나 현재 준비 가능성이 낮아 보류로 분류했습니다.",
+        "다른 특정 산업(바이오/소프트웨어 등) 대상으로 보여 하드웨어 소비재와는 결이 다릅니다.",
+        "마감까지 1일 이내로 임박해 서류 준비 시간이 부족할 수 있습니다.",
+        "목록 페이지에서 사업자등록 필요 여부를 확인할 수 없습니다.",
+        "지원금/예산 정보가 목록에 없어 상세 공고 확인이 필요합니다."
+      ],
+      "conditionsToCheck": [
+        {
+          "label": "사업자등록 필요 여부",
+          "value": "확인 필요"
+        },
+        {
+          "label": "업력 조건",
+          "value": "확인 필요"
+        },
+        {
+          "label": "지역 조건",
+          "value": "확인 필요"
+        },
+        {
+          "label": "자부담 여부",
+          "value": "확인 필요"
+        },
+        {
+          "label": "선정 후 의무사항",
+          "value": "확인 필요"
+        }
+      ],
+      "strategy": [
+        "확인 필요"
+      ]
+    },
+    {
+      "id": "kstartup-178436",
+      "title": "2026년 대구콘텐츠코리아랩 추경 사업 미드폼 콘텐츠 제작지원 참가기업 모집",
+      "organization": "대구디지털혁신진흥원",
+      "sourceName": "K-Startup",
+      "sourceUrl": "https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do",
+      "originalNoticeUrl": "https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&pbancSn=178436",
+      "region": [],
+      "startupStage": [],
+      "supportType": [
+        "사업화"
+      ],
+      "supportAmount": "확인 필요",
+      "applicationStartDate": "2026-07-06",
+      "applicationEndDate": "2026-07-27",
+      "dDay": null,
+      "target": "확인 필요",
+      "description": "[공공] 지원분야: 사업화 · 등록일자: 2026-07-07 · 조회수: 899",
+      "requirements": [
+        "확인 필요"
+      ],
+      "documents": [
+        "확인 필요"
+      ],
+      "contact": "확인 필요",
+      "dataStatus": "needs_review",
+      "verifiedAt": "2026-07-09T02:28:03.993Z",
+      "deadlineStatus": null,
+      "summary": "[공공] 지원분야: 사업화 · 마감일: 2026-07-27",
+      "fitScore": 49,
+      "scoreBreakdown": {
+        "region": {
+          "score": 2,
+          "max": 20
+        },
+        "stage": {
+          "score": 12,
+          "max": 25
+        },
+        "support": {
+          "score": 22,
+          "max": 25
+        },
+        "item": {
+          "score": 6,
+          "max": 20
+        },
+        "readiness": {
+          "score": 7,
+          "max": 10
+        }
+      },
+      "recommendation": "보류",
+      "recommendationReason": "관련성이 낮거나 현재 준비 가능성이 낮아 보류로 분류했습니다.",
+      "matchReasons": [
+        "사업화 성격의 공고로 시제품 제작·R&D·마케팅 등에 폭넓게 연결 가능합니다."
+      ],
+      "riskFlags": [
+        "관련성이 낮거나 현재 준비 가능성이 낮아 보류로 분류했습니다.",
+        "서울·경기·인천 외 지역으로 추정되어 선호 지역과 거리가 있어 확인이 필요합니다.",
+        "다른 특정 산업(바이오/소프트웨어 등) 대상으로 보여 하드웨어 소비재와는 결이 다릅니다.",
+        "목록 페이지에서 사업자등록 필요 여부를 확인할 수 없습니다.",
+        "지원금/예산 정보가 목록에 없어 상세 공고 확인이 필요합니다."
+      ],
+      "whyReasons": [
+        "사업화 성격의 공고로 시제품 제작·R&D·마케팅 등에 폭넓게 연결 가능합니다."
+      ],
+      "risks": [
+        "관련성이 낮거나 현재 준비 가능성이 낮아 보류로 분류했습니다.",
+        "서울·경기·인천 외 지역으로 추정되어 선호 지역과 거리가 있어 확인이 필요합니다.",
+        "다른 특정 산업(바이오/소프트웨어 등) 대상으로 보여 하드웨어 소비재와는 결이 다릅니다.",
+        "목록 페이지에서 사업자등록 필요 여부를 확인할 수 없습니다.",
+        "지원금/예산 정보가 목록에 없어 상세 공고 확인이 필요합니다."
+      ],
+      "conditionsToCheck": [
+        {
+          "label": "사업자등록 필요 여부",
+          "value": "확인 필요"
+        },
+        {
+          "label": "업력 조건",
+          "value": "확인 필요"
+        },
+        {
+          "label": "지역 조건",
+          "value": "확인 필요"
+        },
+        {
+          "label": "자부담 여부",
+          "value": "확인 필요"
+        },
+        {
+          "label": "선정 후 의무사항",
+          "value": "확인 필요"
+        }
+      ],
+      "strategy": [
+        "확인 필요"
+      ]
+    },
+    {
+      "id": "kstartup-178435",
+      "title": "2026년 제주 중장년 기술창업센터 입주기업 모집",
+      "organization": "넥스트챌린지",
+      "sourceName": "K-Startup",
+      "sourceUrl": "https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do",
+      "originalNoticeUrl": "https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&pbancSn=178435",
+      "region": [],
+      "startupStage": [],
+      "supportType": [
+        "시설ㆍ공간ㆍ보육"
+      ],
+      "supportAmount": "확인 필요",
+      "applicationStartDate": "2026-07-03",
+      "applicationEndDate": "2026-07-29",
+      "dDay": null,
+      "target": "확인 필요",
+      "description": "[민간] 지원분야: 시설ㆍ공간ㆍ보육 · 등록일자: 2026-07-07 · 조회수: 710",
+      "requirements": [
+        "확인 필요"
+      ],
+      "documents": [
+        "확인 필요"
+      ],
+      "contact": "확인 필요",
+      "dataStatus": "needs_review",
+      "verifiedAt": "2026-07-09T02:28:03.993Z",
+      "deadlineStatus": null,
+      "summary": "[민간] 지원분야: 시설ㆍ공간ㆍ보육 · 마감일: 2026-07-29",
+      "fitScore": 47,
+      "scoreBreakdown": {
+        "region": {
+          "score": 2,
+          "max": 20
+        },
+        "stage": {
+          "score": 10,
+          "max": 25
+        },
+        "support": {
+          "score": 18,
+          "max": 25
+        },
+        "item": {
+          "score": 10,
+          "max": 20
+        },
+        "readiness": {
+          "score": 7,
+          "max": 10
+        }
+      },
+      "recommendation": "제외",
+      "recommendationReason": "이미 사업자등록을 마친 기업 전용으로 보이는데 현재 사업자 등록 전이라 신청 자격이 없어 제외했습니다.",
+      "matchReasons": [
+        "창업공간 지원으로 관심 지원분야와 일치합니다."
+      ],
+      "riskFlags": [
+        "이미 사업자등록을 마친 기업 전용으로 보이는데 현재 사업자 등록 전이라 신청 자격이 없어 제외했습니다.",
+        "서울·경기·인천 외 지역으로 추정되어 선호 지역과 거리가 있어 확인이 필요합니다.",
+        "이미 사업자등록을 마친 기업(입주기업 등) 대상으로 보여 현재 단계에는 불리할 수 있습니다.",
+        "관심 지원분야와의 직접 연관 여부가 불명확합니다.",
+        "목록 페이지에서 사업자등록 필요 여부를 확인할 수 없습니다.",
+        "지원금/예산 정보가 목록에 없어 상세 공고 확인이 필요합니다."
+      ],
+      "whyReasons": [
+        "창업공간 지원으로 관심 지원분야와 일치합니다."
+      ],
+      "risks": [
+        "이미 사업자등록을 마친 기업 전용으로 보이는데 현재 사업자 등록 전이라 신청 자격이 없어 제외했습니다.",
+        "서울·경기·인천 외 지역으로 추정되어 선호 지역과 거리가 있어 확인이 필요합니다.",
+        "이미 사업자등록을 마친 기업(입주기업 등) 대상으로 보여 현재 단계에는 불리할 수 있습니다.",
+        "관심 지원분야와의 직접 연관 여부가 불명확합니다.",
+        "목록 페이지에서 사업자등록 필요 여부를 확인할 수 없습니다.",
+        "지원금/예산 정보가 목록에 없어 상세 공고 확인이 필요합니다."
+      ],
+      "conditionsToCheck": [
+        {
+          "label": "사업자등록 필요 여부",
+          "value": "확인 필요"
+        },
+        {
+          "label": "업력 조건",
+          "value": "확인 필요"
+        },
+        {
+          "label": "지역 조건",
+          "value": "확인 필요"
+        },
+        {
+          "label": "자부담 여부",
+          "value": "확인 필요"
+        },
+        {
+          "label": "선정 후 의무사항",
+          "value": "확인 필요"
+        }
+      ],
+      "strategy": [
+        "확인 필요"
+      ]
+    },
+    {
+      "id": "kstartup-178432",
+      "title": "2026년 서울시 프렙 아카데미 하반기 11기 교육생 모집(7/6~8/3)",
+      "organization": "서울신용보증재단",
+      "sourceName": "K-Startup",
+      "sourceUrl": "https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do",
+      "originalNoticeUrl": "https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&pbancSn=178432",
+      "region": [],
+      "startupStage": [],
+      "supportType": [
+        "멘토링ㆍ컨설팅ㆍ교육"
+      ],
+      "supportAmount": "확인 필요",
+      "applicationStartDate": "2026-07-06",
+      "applicationEndDate": "2026-08-03",
+      "dDay": null,
+      "target": "확인 필요",
+      "description": "[공공] 지원분야: 멘토링ㆍ컨설팅ㆍ교육 · 등록일자: 2026-07-07 · 조회수: 787",
+      "requirements": [
+        "확인 필요"
+      ],
+      "documents": [
+        "확인 필요"
+      ],
+      "contact": "확인 필요",
+      "dataStatus": "needs_review",
+      "verifiedAt": "2026-07-09T02:28:03.994Z",
+      "deadlineStatus": null,
+      "summary": "[공공] 지원분야: 멘토링ㆍ컨설팅ㆍ교육 · 마감일: 2026-08-03",
+      "fitScore": 73,
+      "scoreBreakdown": {
+        "region": {
+          "score": 20,
+          "max": 20
+        },
+        "stage": {
+          "score": 22,
+          "max": 25
+        },
+        "support": {
+          "score": 14,
+          "max": 25
+        },
+        "item": {
+          "score": 10,
+          "max": 20
+        },
+        "readiness": {
+          "score": 7,
+          "max": 10
+        }
+      },
+      "recommendation": "조건 확인",
+      "recommendationReason": "일부 조건은 맞지만 지원금·사업자등록·상세 지원내용 확인이 필요해 조건 확인으로 분류했습니다.",
+      "matchReasons": [
+        "선호 지역(서울·경기·인천)과 일치합니다.",
+        "예비창업자 대상 신호가 있어 현재 단계와 부합합니다.",
+        "멘토링·컨설팅·교육 지원으로 사업 운영에 간접적인 도움이 될 수 있습니다."
+      ],
+      "riskFlags": [
+        "일부 조건은 맞지만 지원금·사업자등록·상세 지원내용 확인이 필요해 조건 확인으로 분류했습니다.",
+        "관심 지원분야와의 직접 연관 여부가 불명확합니다.",
+        "목록 페이지에서 사업자등록 필요 여부를 확인할 수 없습니다.",
+        "지원금/예산 정보가 목록에 없어 상세 공고 확인이 필요합니다."
+      ],
+      "whyReasons": [
+        "선호 지역(서울·경기·인천)과 일치합니다.",
+        "예비창업자 대상 신호가 있어 현재 단계와 부합합니다.",
+        "멘토링·컨설팅·교육 지원으로 사업 운영에 간접적인 도움이 될 수 있습니다."
+      ],
+      "risks": [
+        "일부 조건은 맞지만 지원금·사업자등록·상세 지원내용 확인이 필요해 조건 확인으로 분류했습니다.",
+        "관심 지원분야와의 직접 연관 여부가 불명확합니다.",
+        "목록 페이지에서 사업자등록 필요 여부를 확인할 수 없습니다.",
+        "지원금/예산 정보가 목록에 없어 상세 공고 확인이 필요합니다."
+      ],
+      "conditionsToCheck": [
+        {
+          "label": "사업자등록 필요 여부",
+          "value": "확인 필요"
+        },
+        {
+          "label": "업력 조건",
+          "value": "확인 필요"
+        },
+        {
+          "label": "지역 조건",
+          "value": "확인 필요"
+        },
+        {
+          "label": "자부담 여부",
+          "value": "확인 필요"
+        },
+        {
+          "label": "선정 후 의무사항",
+          "value": "확인 필요"
+        }
+      ],
+      "strategy": [
+        "확인 필요"
+      ]
+    },
+    {
+      "id": "kstartup-178433",
+      "title": "창업On 희망On  참여자 모집 공고",
+      "organization": "경북창조경제혁신센터",
+      "sourceName": "K-Startup",
+      "sourceUrl": "https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do",
+      "originalNoticeUrl": "https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&pbancSn=178433",
+      "region": [],
+      "startupStage": [],
+      "supportType": [
+        "사업화"
+      ],
+      "supportAmount": "확인 필요",
+      "applicationStartDate": "2026-07-03",
+      "applicationEndDate": "2026-07-10",
+      "dDay": null,
+      "target": "확인 필요",
+      "description": "[공공] 지원분야: 사업화 · 등록일자: 2026-07-07 · 조회수: 1,050",
+      "requirements": [
+        "확인 필요"
+      ],
+      "documents": [
+        "확인 필요"
+      ],
+      "contact": "확인 필요",
+      "dataStatus": "needs_review",
+      "verifiedAt": "2026-07-09T02:28:03.994Z",
+      "deadlineStatus": null,
+      "summary": "[공공] 지원분야: 사업화 · 마감일: 2026-07-10",
+      "fitScore": 50,
+      "scoreBreakdown": {
+        "region": {
+          "score": 2,
+          "max": 20
+        },
+        "stage": {
+          "score": 12,
+          "max": 25
+        },
+        "support": {
+          "score": 22,
+          "max": 25
+        },
+        "item": {
+          "score": 10,
+          "max": 20
+        },
+        "readiness": {
+          "score": 4,
+          "max": 10
+        }
+      },
+      "recommendation": "보류",
+      "recommendationReason": "관련성이 낮거나 현재 준비 가능성이 낮아 보류로 분류했습니다.",
+      "matchReasons": [
+        "사업화 성격의 공고로 시제품 제작·R&D·마케팅 등에 폭넓게 연결 가능합니다."
+      ],
+      "riskFlags": [
+        "관련성이 낮거나 현재 준비 가능성이 낮아 보류로 분류했습니다.",
+        "서울·경기·인천 외 지역으로 추정되어 선호 지역과 거리가 있어 확인이 필요합니다.",
+        "관심 지원분야와의 직접 연관 여부가 불명확합니다.",
+        "마감까지 1일 이내로 임박해 서류 준비 시간이 부족할 수 있습니다.",
+        "목록 페이지에서 사업자등록 필요 여부를 확인할 수 없습니다.",
+        "지원금/예산 정보가 목록에 없어 상세 공고 확인이 필요합니다."
+      ],
+      "whyReasons": [
+        "사업화 성격의 공고로 시제품 제작·R&D·마케팅 등에 폭넓게 연결 가능합니다."
+      ],
+      "risks": [
+        "관련성이 낮거나 현재 준비 가능성이 낮아 보류로 분류했습니다.",
+        "서울·경기·인천 외 지역으로 추정되어 선호 지역과 거리가 있어 확인이 필요합니다.",
+        "관심 지원분야와의 직접 연관 여부가 불명확합니다.",
+        "마감까지 1일 이내로 임박해 서류 준비 시간이 부족할 수 있습니다.",
+        "목록 페이지에서 사업자등록 필요 여부를 확인할 수 없습니다.",
+        "지원금/예산 정보가 목록에 없어 상세 공고 확인이 필요합니다."
+      ],
+      "conditionsToCheck": [
+        {
+          "label": "사업자등록 필요 여부",
+          "value": "확인 필요"
+        },
+        {
+          "label": "업력 조건",
+          "value": "확인 필요"
+        },
+        {
+          "label": "지역 조건",
+          "value": "확인 필요"
+        },
+        {
+          "label": "자부담 여부",
+          "value": "확인 필요"
+        },
+        {
+          "label": "선정 후 의무사항",
+          "value": "확인 필요"
+        }
+      ],
+      "strategy": [
+        "확인 필요"
+      ]
+    },
+    {
+      "id": "kstartup-178434",
+      "title": "2026 수원기업IR데이 수원. 판(PANN) 참여 기업 추가 모집",
+      "organization": "탭엔젤파트너스",
+      "sourceName": "K-Startup",
+      "sourceUrl": "https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do",
+      "originalNoticeUrl": "https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&pbancSn=178434",
+      "region": [],
+      "startupStage": [],
+      "supportType": [
+        "멘토링ㆍ컨설팅ㆍ교육"
+      ],
+      "supportAmount": "확인 필요",
+      "applicationStartDate": "2026-07-06",
+      "applicationEndDate": "2026-07-15",
+      "dDay": null,
+      "target": "확인 필요",
+      "description": "[민간] 지원분야: 멘토링ㆍ컨설팅ㆍ교육 · 등록일자: 2026-07-07 · 조회수: 796",
+      "requirements": [
+        "확인 필요"
+      ],
+      "documents": [
+        "확인 필요"
+      ],
+      "contact": "확인 필요",
+      "dataStatus": "needs_review",
+      "verifiedAt": "2026-07-09T02:28:03.995Z",
+      "deadlineStatus": null,
+      "summary": "[민간] 지원분야: 멘토링ㆍ컨설팅ㆍ교육 · 마감일: 2026-07-15",
+      "fitScore": 50,
+      "scoreBreakdown": {
+        "region": {
+          "score": 10,
+          "max": 20
+        },
+        "stage": {
+          "score": 12,
+          "max": 25
+        },
+        "support": {
+          "score": 14,
+          "max": 25
+        },
+        "item": {
+          "score": 10,
+          "max": 20
+        },
+        "readiness": {
+          "score": 4,
+          "max": 10
+        }
+      },
+      "recommendation": "보류",
+      "recommendationReason": "관련성이 낮거나 현재 준비 가능성이 낮아 보류로 분류했습니다.",
+      "matchReasons": [
+        "전국 대상일 가능성이 있어 신청 가능성 검토가 필요합니다.",
+        "멘토링·컨설팅·교육 지원으로 사업 운영에 간접적인 도움이 될 수 있습니다."
+      ],
+      "riskFlags": [
+        "관련성이 낮거나 현재 준비 가능성이 낮아 보류로 분류했습니다.",
+        "관심 지원분야와의 직접 연관 여부가 불명확합니다.",
+        "마감까지 6일 이내로 임박해 서류 준비 시간이 부족할 수 있습니다.",
+        "목록 페이지에서 사업자등록 필요 여부를 확인할 수 없습니다.",
+        "지원금/예산 정보가 목록에 없어 상세 공고 확인이 필요합니다."
+      ],
+      "whyReasons": [
+        "전국 대상일 가능성이 있어 신청 가능성 검토가 필요합니다.",
+        "멘토링·컨설팅·교육 지원으로 사업 운영에 간접적인 도움이 될 수 있습니다."
+      ],
+      "risks": [
+        "관련성이 낮거나 현재 준비 가능성이 낮아 보류로 분류했습니다.",
+        "관심 지원분야와의 직접 연관 여부가 불명확합니다.",
+        "마감까지 6일 이내로 임박해 서류 준비 시간이 부족할 수 있습니다.",
+        "목록 페이지에서 사업자등록 필요 여부를 확인할 수 없습니다.",
+        "지원금/예산 정보가 목록에 없어 상세 공고 확인이 필요합니다."
+      ],
+      "conditionsToCheck": [
+        {
+          "label": "사업자등록 필요 여부",
+          "value": "확인 필요"
+        },
+        {
+          "label": "업력 조건",
+          "value": "확인 필요"
+        },
+        {
+          "label": "지역 조건",
+          "value": "확인 필요"
+        },
+        {
+          "label": "자부담 여부",
+          "value": "확인 필요"
+        },
+        {
+          "label": "선정 후 의무사항",
+          "value": "확인 필요"
+        }
+      ],
+      "strategy": [
+        "확인 필요"
+      ]
+    },
+    {
+      "id": "kstartup-178431",
+      "title": "2026 SVC Seoul Membership(Global) Recruitment Announcement",
+      "organization": "창업진흥원",
+      "sourceName": "K-Startup",
+      "sourceUrl": "https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do",
+      "originalNoticeUrl": "https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&pbancSn=178431",
+      "region": [],
+      "startupStage": [],
+      "supportType": [
+        "시설ㆍ공간ㆍ보육"
+      ],
+      "supportAmount": "확인 필요",
+      "applicationStartDate": "2026-07-06",
+      "applicationEndDate": "2026-07-20",
+      "dDay": null,
+      "target": "확인 필요",
+      "description": "[공공] 지원분야: 시설ㆍ공간ㆍ보육 · 등록일자: 2026-07-06 · 조회수: 2,994",
+      "requirements": [
+        "확인 필요"
+      ],
+      "documents": [
+        "확인 필요"
+      ],
+      "contact": "확인 필요",
+      "dataStatus": "needs_review",
+      "verifiedAt": "2026-07-09T02:28:03.995Z",
+      "deadlineStatus": null,
+      "summary": "[공공] 지원분야: 시설ㆍ공간ㆍ보육 · 마감일: 2026-07-20",
+      "fitScore": 57,
+      "scoreBreakdown": {
+        "region": {
+          "score": 10,
+          "max": 20
+        },
+        "stage": {
+          "score": 12,
+          "max": 25
+        },
+        "support": {
+          "score": 18,
+          "max": 25
+        },
+        "item": {
+          "score": 10,
+          "max": 20
+        },
+        "readiness": {
+          "score": 7,
+          "max": 10
+        }
+      },
+      "recommendation": "보류",
+      "recommendationReason": "관련성이 낮거나 현재 준비 가능성이 낮아 보류로 분류했습니다.",
+      "matchReasons": [
+        "전국 대상일 가능성이 있어 신청 가능성 검토가 필요합니다.",
+        "창업공간 지원으로 관심 지원분야와 일치합니다."
+      ],
+      "riskFlags": [
+        "관련성이 낮거나 현재 준비 가능성이 낮아 보류로 분류했습니다.",
+        "관심 지원분야와의 직접 연관 여부가 불명확합니다.",
+        "목록 페이지에서 사업자등록 필요 여부를 확인할 수 없습니다.",
+        "지원금/예산 정보가 목록에 없어 상세 공고 확인이 필요합니다."
+      ],
+      "whyReasons": [
+        "전국 대상일 가능성이 있어 신청 가능성 검토가 필요합니다.",
+        "창업공간 지원으로 관심 지원분야와 일치합니다."
+      ],
+      "risks": [
+        "관련성이 낮거나 현재 준비 가능성이 낮아 보류로 분류했습니다.",
+        "관심 지원분야와의 직접 연관 여부가 불명확합니다.",
+        "목록 페이지에서 사업자등록 필요 여부를 확인할 수 없습니다.",
+        "지원금/예산 정보가 목록에 없어 상세 공고 확인이 필요합니다."
+      ],
+      "conditionsToCheck": [
+        {
+          "label": "사업자등록 필요 여부",
+          "value": "확인 필요"
+        },
+        {
+          "label": "업력 조건",
+          "value": "확인 필요"
+        },
+        {
+          "label": "지역 조건",
+          "value": "확인 필요"
+        },
+        {
+          "label": "자부담 여부",
+          "value": "확인 필요"
+        },
+        {
+          "label": "선정 후 의무사항",
+          "value": "확인 필요"
+        }
+      ],
+      "strategy": [
+        "확인 필요"
+      ]
+    }
+  ]
+}

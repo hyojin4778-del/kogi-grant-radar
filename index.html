@@ -1025,10 +1025,11 @@ import { kogiProfile } from "./data/kogiProfile.js";
     allGrants = result.grants;
     const banner = $("topBanner");
     if(banner){
+      const updatedLabel = result.lastUpdated ? `마지막 업데이트: ${fmtDateTime(new Date(result.lastUpdated))} · ` : "";
       if(result.dataSource === "live"){
-        banner.textContent = "🔎 실시간 K-Startup 공고 · 자동 분류(검증 전) — 지원 전 원문 확인 필수";
+        banner.textContent = `🔎 ${updatedLabel}실시간 K-Startup 공고 · 자동 분류(검증 전) — 지원 전 원문 확인 필수`;
       } else {
-        banner.textContent = "🧪 예시 데이터 표시 중 (실시간 연동 실패)";
+        banner.textContent = `🧪 ${updatedLabel}${result.message || "예시 데이터 표시 중"}`;
       }
     }
     updateChipUI();
@@ -1324,6 +1325,7 @@ import { kogiProfile } from "./data/kogiProfile.js";
     el.innerHTML = `<div class="deadline-banner ${cls}"><span>⏰ ${msg}</span></div>`;
   }
   function fmtDate(d){ return `${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,"0")}.${String(d.getDate()).padStart(2,"0")}`; }
+  function fmtDateTime(d){ return `${fmtDate(d)} ${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`; }
 
   function renderInfoStrip(ext){
     const el = $("infoStrip");

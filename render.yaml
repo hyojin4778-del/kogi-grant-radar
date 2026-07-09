@@ -1,6 +1,19 @@
 # Render.com Blueprint — https://render.com/docs/blueprint-spec
 # GitHub 저장소를 Render에 연결하면 이 파일을 자동으로 인식해서
-# 아래 설정대로 Web Service를 만들어줍니다 (수동 설정도 동일하게 가능).
+# 아래 설정대로 Web Service + Cron Job을 만들어줍니다 (수동 설정도 동일하게 가능).
+#
+# 중요 — 이 cron job 혼자서는 완결되지 않습니다:
+# Render 무료 플랜에서는 web service와 cron job이 파일시스템을 공유하지
+# 않습니다(각자 별도의 임시 컨테이너). 그래서 cron job이 npm run update-grants를
+# 실행해 만든 data/grants.json은 cron job 자신의 컨테이너 안에만 남고, 실행 중인
+# web service에는 반영되지 않습니다 (web service를 재배포해야 새 파일이 보임).
+#
+# 그래서 실제 "매일 자동 반영"은 .github/workflows/update-grants.yml(레포 커밋
+# 그대로)이 담당합니다: GitHub Actions가 매일 데이터를 갱신해 data/grants.json을
+# 저장소에 커밋 → Render가 그 커밋을 감지해 web service를 자동 재배포 → 새
+# 데이터가 반영됩니다. 아래 cron job은 요청하신 대로 추가해두었지만, 유료
+# Persistent Disk를 web service와 공유하도록 별도 설정하지 않는 한 그 자체로는
+# 화면에 반영되지 않는다는 점을 참고하세요.
 services:
   - type: web
     name: kogi-grant-radar
@@ -8,6 +21,18 @@ services:
     plan: free
     buildCommand: npm install
     startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+
+  - type: cron
+    name: kogi-grant-radar-daily-update
+    env: node
+    plan: free
+    # "0 0 * * *"는 UTC 자정 = 한국시간(KST, UTC+9) 오전 9시.
+    schedule: "0 0 * * *"
+    buildCommand: npm install
+    startCommand: npm run update-grants
     envVars:
       - key: NODE_VERSION
         value: 20

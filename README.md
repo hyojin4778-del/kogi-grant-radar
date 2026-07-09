@@ -1,24 +1,75 @@
 # KOGI Grant Radar
 
-Personal curation prototype that shows startup-support grant announcements
-relevant to KOGI. Static frontend (`index.html` + ES modules under `data/`
-and `services/`) served by a small Express backend (`server.js`), which also
-hosts a backend-only route reserved for real K-Startup API integration.
+Personal dashboard that automatically checks new 창업지원사업 공고 (startup
+grant announcements) and classifies each one into **추천 / 조건 확인 / 제외**
+for KOGI (키링형 보조배터리 브랜드), based on a single editable business
+profile — no manual paste-in required for the main flow.
+
+## Architecture
+
+```
+services/kstartupSource.js   fetch + parse K-Startup's public listing page
+                              (temporary MVP source — see docs/kstartup-api-checklist.md
+                              for the pending official OpenAPI integration)
+        │
+        ▼
+matchingEngine.js             classifyGrant(): scores each grant against
+                              data/kogiProfile.js and assigns
+                              추천 / 조건 확인 / 보류 / 제외
+        │
+        ▼
+scripts/update-grants.js      orchestrates the two steps above and writes a
+                              timestamped snapshot to data/grants.json
+        │
+        ▼
+server.js                     serves data/grants.json via /api/grants/kstartup
+                              (reads the file — does NOT scrape on every
+                              request, so page loads stay fast)
+        │
+        ▼
+index.html                    fetches from the server and renders the
+                              추천/조건확인/제외 dashboard, with a
+                              마지막 업데이트 timestamp
+```
+
+**Business profile — `data/kogiProfile.js`** is the single source of truth
+for KOGI's current status (사업자등록 상태, 창업단계, 선호지역, 관심
+지원분야, 제외 규칙). Edit that one file when the business status changes
+(사업자 등록 완료, 창업 1년 미만, 법인 전환, etc.) — every part of the app
+picks it up automatically.
 
 ## Running locally
 
 ```
 npm install   # first time only
-npm start
+npm run update-grants   # fetch + classify today's grants -> data/grants.json
+npm start                # or: npm run dev (auto-restarts on file changes)
 ```
 
-This runs `node server.js` — an Express server that serves the existing
-static frontend unchanged, plus `/api/grants/kstartup` (currently a mock
-route — see Security notes below). Open **http://localhost:3000**.
+Open **http://localhost:3000**. `type="module"` script imports require the
+app to be served over `http://` — opening `index.html` directly via `file://`
+will fail with a CORS error in the console.
 
-`type="module"` script imports require the app to be served over `http://`
-— opening `index.html` directly via `file://` (double-click) will fail with
-a CORS error in the console.
+`data/grants.json` is committed to the repo (not gitignored) so a fresh
+checkout/deploy always has *some* data to serve, even before the first
+scheduled update runs.
+
+## Keeping data fresh automatically
+
+- **`.github/workflows/update-grants.yml`** — a GitHub Actions workflow that
+  runs `npm run update-grants` daily (09:00 KST) and commits `data/grants.json`
+  back to the repo if it changed. This is what actually keeps the deployed
+  site fresh without you opening a terminal: Render (or any host with
+  auto-deploy-on-push) redeploys automatically when this commit lands.
+- **`render.yaml`** — also defines a Render **cron job** that runs
+  `npm run update-grants` on the same schedule, as a Render-native option.
+  Important limitation: on Render's free tier, a cron job and a web service
+  don't share a filesystem, so the cron job's own `data/grants.json` never
+  reaches the running web service by itself — see the comment at the top of
+  `render.yaml`. The GitHub Actions workflow above is what closes that loop
+  in practice; the Render cron job is provided because it was explicitly
+  requested, but treat it as redundant/optional unless you later add a
+  shared persistent disk.
 
 ## Security notes — read before adding a real API key
 
@@ -35,33 +86,16 @@ BIZINFO_API_KEY=
 `.env` can never be committed by accident — but that's a second line of
 defense, not the main one (see #3).
 
-**3. The static file server matters for dotfile exposure.** We previously
-ran this project with `npx serve`, a plain static server with no path
-restrictions — it served *any* file in the directory over HTTP, including
-dotfiles (`.env.example` returned `200 OK` from it). Now that `server.js`
-uses `express.static`, dotfiles are ignored by default (`.env.example` now
-returns `404`) — a real improvement. **This is still not a reason to ever
-place a real `.env` in this project root.** Non-dotfiles (e.g. `server.js`,
-`package.json`) are still served as static assets either way, `express.static`'s
-dotfile-ignoring is a default that could be changed or misconfigured, and
-`.gitignore` only affects `git`, not what any file server hands out. **The
-rule stays "never put a real secret in a folder a static server exposes,"**
-regardless of which server is in front of it.
+**3. The static file server matters for dotfile exposure.** `server.js` uses
+`express.static`, which ignores dotfiles by default (`.env.example` returns
+`404`). That's a real improvement over a plain static server, but it's still
+not a reason to ever place a real `.env` in this project root — the rule
+stays "never put a real secret in a folder a static server exposes."
 
-**4. A backend now exists (`server.js`), but it does not call the real
-K-Startup API yet.** `/api/grants/kstartup` currently returns a mock
-response (the K-Startup-tagged subset of `data/mockGrants.js`) — no external
-request is made, and `process.env.KSTARTUP_API_KEY` is only referenced in a
-`TODO` comment describing the planned real implementation. When that's
-filled in, the key will be read server-side inside `server.js` and never
-sent to the browser — that's the whole reason this backend exists instead of
-calling data.go.kr directly from frontend JS.
-
-**Important — the frontend and backend mock paths are currently separate.**
-`services/grantApi.js`'s `fetchKStartupGrants()`/`fetchAllGrants()` still run
-entirely in the browser and do **not** call `/api/grants/kstartup` yet — they
-still fall back straight to the bundled `data/mockGrants.js` on their own, and
-the UI still shows "실시간 공고 데이터를 불러오지 못해 예시 데이터를 표시합니다."
-from that frontend-side fallback, not from the new backend route. Wiring the
-frontend to actually call `/api/grants/kstartup` (instead of maintaining its
-own separate mock fallback) is a natural next step, not done yet.
+**4. No real API key is in use yet.** `services/kstartupSource.js` scrapes
+K-Startup's public HTML listing page as a temporary MVP data source — no
+`KSTARTUP_API_KEY` is read or needed for that. When the official
+공공데이터포털 OpenAPI integration is confirmed (see
+`docs/kstartup-api-checklist.md`), a new source module should read the key
+server-side only (inside a script or `server.js`, via `process.env`), never
+in `index.html` or any browser-side file.

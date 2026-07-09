@@ -7,10 +7,18 @@
 // changes with it automatically; nothing here should hardcode KOGI-specific
 // facts.
 //
+// classifyGrant(baseGrant, profile) wraps calculateMatchScore and assembles
+// the full grant object the UI expects (fitScore, recommendation,
+// conditionsToCheck, strategy, summary, ...). It only fills a field with a
+// generic "확인 필요" default when the base grant doesn't already have a
+// better value — so a future real-API source that DOES know e.g. 지원금액
+// can just set that field before calling classifyGrant, without needing any
+// change here.
+//
 // Uses ONLY fields the K-Startup listing-page scraper actually produces
 // (title, organization, supportType, applicationEndDate) — no detail-page
-// fetch (see server.js's comment on why this MVP stays on the listing page
-// only).
+// fetch (see services/kstartupSource.js's comment on why this MVP stays on
+// the listing page only).
 //
 // matchReasons contains ONLY positive findings (why this might fit). riskFlags
 // contains ONLY things to verify or reasons for caution. Anything the listing
@@ -24,7 +32,7 @@ export { kogiProfile };
 // (see scoreRegion) so this stays correct if preferredRegions ever changes.
 const ALL_REGIONS = ["서울", "부산", "대구", "인천", "광주", "대전", "울산", "세종", "경기", "강원", "충북", "충남", "전북", "전남", "경북", "경남", "제주"];
 
-// "이 공고는 지방 이전이 필수"라는 신호 — profile.exclude.relocationRequired가
+// "이 공고는 지방 이전 필수"라는 신호 — profile.exclude.relocationRequired가
 // true일 때만 이 신호를 근거로 제외 처리한다.
 const RELOCATION_REQUIRED_SIGNALS = ["이전 필수", "이전 의무", "사업장 이전 후", "지역 이전 후", "이전하여야"];
 
@@ -34,7 +42,9 @@ const STAGE_KEYWORD_MAP = {
   "3년 이내": ["3년 이내"],
   "7년 이내": ["7년 이내"],
 };
-const REGISTERED_BUSINESS_SIGNALS = ["입주기업", "사업자등록", "사업자 등록", "법인 설립", "기업 모집"];
+// "기업 모집"처럼 너무 일반적인 문구는 뺐다 — "예비창업자 및 창업기업 모집"처럼
+// 예비창업자를 명시적으로 포함하는 공고까지 오탐으로 걸러내는 문제가 있었다.
+const REGISTERED_BUSINESS_SIGNALS = ["입주기업", "사업자등록", "사업자 등록", "법인 설립"];
 const LATE_STAGE_SIGNALS = ["시리즈A", "시리즈B", "시리즈C", "IPO", "M&A", "인수합병", "투자유치", "TIPS"];
 // These aren't grants a company applies to at all — recruiting evaluators/
 // mentors, not funding applicants. KOGI should never be routed toward these.
@@ -64,7 +74,7 @@ function scoreStage(text, profile) {
     return { score: 2, kind: "negative", reason: "멘토/심사위원 모집 성격으로 지원사업과 무관합니다." };
   }
   if (LATE_STAGE_SIGNALS.some((k) => text.includes(k))) {
-    return { score: 5, kind: "negative", reason: `투자 유치 이후 단계(시리즈 투자 등) 대상으로 보여 ${profile.startupStageLabel} 단계와 거리가 있습니다.` };
+    return { score: 5, kind: "negative", reason: `투자 유치 이후 단계(시리즈 투자 등) 대상으로 보여 ${profile.startupStageLabel} 단계와 업력 조건이 맞지 않습니다.` };
   }
   if (REGISTERED_BUSINESS_SIGNALS.some((k) => text.includes(k))) {
     return { score: 10, kind: "negative", reason: "이미 사업자등록을 마친 기업(입주기업 등) 대상으로 보여 현재 단계에는 불리할 수 있습니다." };
@@ -160,14 +170,16 @@ export function calculateMatchScore(grant, profile = kogiProfile) {
     RELOCATION_REQUIRED_SIGNALS.some((k) => text.includes(k)) &&
     !hasPreferredRegion;
 
-  // 목록 페이지는 사업자등록 요건을 확정적으로 알려주지 않으므로(문구만으로 판단),
-  // 아직 사업자 등록 전(profile.registrationStatus === "not_registered")인데
-  // 등록 완료 기업만 대상으로 보이는 신호가 있으면 "적극 검토"로 확정하지 않고
-  // 최대 "조건 확인"까지만 — 등록을 마치면(profile.registrationStatus을
-  // "registered"로 바꾸면) 이 제약은 자동으로 사라진다.
-  const hasRegistrationSignal =
-    REGISTERED_BUSINESS_SIGNALS.some((k) => text.includes(k)) ||
-    LATE_STAGE_SIGNALS.some((k) => text.includes(k));
+  // "업력 조건이 명백히 맞지 않는" 공고 — 시리즈 투자/IPO 등 후기 단계 신호가
+  // 있으면 profile.stageRange(예비창업/초기창업)와 근본적으로 다른 단계이므로
+  // 점수와 무관하게 제외한다.
+  const lateStageConflict = profile.exclude.stageMismatch && LATE_STAGE_SIGNALS.some((k) => text.includes(k));
+
+  // "사업자 등록 필수인데 예비창업자는 지원 불가"로 보이는 공고 — 목록 페이지는
+  // 이를 확정적으로 알려주지 않으므로(문구만으로 판단), profile.registrationStatus가
+  // "not_registered"일 때만 이 신호를 근거로 제외한다. 사업자 등록을 마치면
+  // (profile.registrationStatus를 "registered"로 바꾸면) 이 제약은 자동으로 사라진다.
+  const hasRegistrationSignal = REGISTERED_BUSINESS_SIGNALS.some((k) => text.includes(k));
   const registrationConflict = profile.registrationStatus === "not_registered" && hasRegistrationSignal;
 
   // Positive-only reasons (recommendationReason is prepended further down,
@@ -180,9 +192,7 @@ export function calculateMatchScore(grant, profile = kogiProfile) {
   }
 
   // Risk/uncertainty-only findings, most specific first. Always includes the
-  // two standing risks the listing page can never resolve — which is also
-  // why riskFlags.length is virtually always >= 2 for this data source (see
-  // priority 3 below).
+  // two standing risks the listing page can never resolve.
   const riskFlags = [region, stage, support, item, readiness]
     .filter((d) => d.kind !== "positive" && d.reason)
     .map((d) => d.reason);
@@ -193,16 +203,12 @@ export function calculateMatchScore(grant, profile = kogiProfile) {
   // 추천 등급 산정 — 아래 순서대로 우선 적용 (앞 조건이 뒤 조건보다 우선함):
   //   1. 강제 제외 조건 — 멘토/심사위원 모집 등 애초에 지원사업이 아니면
   //      점수와 무관하게 "제외".
-  //   2. 지방 이전 필수 — profile.exclude.relocationRequired가 켜져 있고
-  //      선호 지역 언급이 전혀 없는데 이전이 필수로 보이면 점수와 무관하게 "제외".
-  //   3. 사업자등록 필수 신호 — profile.registrationStatus가 "not_registered"인데
-  //      이미 등록된 기업 대상으로 보이면 "적극 검토"로 확정하지 않음 — 최대
-  //      "조건 확인"까지만.
-  //   4. 리스크 개수 — 점수가 75점 이상이어도 riskFlags가 2개 이상이면
-  //      "적극 검토"로 확정하지 않음 — 최대 "조건 확인"까지만. (listing
-  //      page는 사업자등록·지원금을 절대 확인해주지 않으므로 riskFlags는
-  //      사실상 항상 2개 이상이라, 이 데이터 소스에서는 "적극 검토"가
-  //      구조적으로 나오기 어렵다 — 의도된 보수적 동작.)
+  //   2. 지방 이전 필수 — 점수와 무관하게 "제외".
+  //   3. 업력 조건 불일치 — 시리즈 투자 이후 등 명백히 다른 단계면 "제외".
+  //   4. 사업자등록 필수 신호 — profile.registrationStatus가 "not_registered"인데
+  //      이미 등록된 기업 대상으로 보이면 "제외". (주의: 목록 페이지 문구만으로
+  //      판단하는 휴리스틱이라 완전히 확실하지는 않음 — 제외 공고함을 가끔
+  //      직접 훑어보는 걸 권장.)
   //   5. 최종 점수 기준 — 위 1~4에 해당하지 않을 때만 순수 점수로 결정:
   //      80점 이상 "적극 검토" / 60~79점 "조건 확인" / 40~59점 "보류" /
   //      39점 이하 "제외".
@@ -211,47 +217,44 @@ export function calculateMatchScore(grant, profile = kogiProfile) {
   let recommendationReason;
 
   if (notApplicable) {
-    // 1. 강제 제외 조건
     recommendation = "제외";
     recommendationReason = "멘토/심사위원 모집 성격으로 신청할 지원사업이 아니므로 제외했습니다.";
   } else if (relocationConflict) {
-    // 2. 지방 이전 필수
     recommendation = "제외";
     recommendationReason = `지방 이전이 필수 조건으로 보여 선호 지역(${profile.preferredRegions.join("·")}) 기준과 맞지 않아 제외했습니다.`;
+  } else if (lateStageConflict) {
+    recommendation = "제외";
+    recommendationReason = `투자 유치 이후 단계 대상으로 보여 업력 조건(${profile.startupStageLabel})이 맞지 않아 제외했습니다.`;
+  } else if (registrationConflict) {
+    recommendation = "제외";
+    recommendationReason = "이미 사업자등록을 마친 기업 전용으로 보이는데 현재 사업자 등록 전이라 신청 자격이 없어 제외했습니다.";
   } else {
-    let baseRecommendation;
-    if (fitScore >= 80) baseRecommendation = "적극 검토";
-    else if (fitScore >= 60) baseRecommendation = "조건 확인";
-    else if (fitScore >= 40) baseRecommendation = "보류";
-    else baseRecommendation = "제외";
+    if (fitScore >= 80) recommendation = "적극 검토";
+    else if (fitScore >= 60) recommendation = "조건 확인";
+    else if (fitScore >= 40) recommendation = "보류";
+    else recommendation = "제외";
 
-    if (registrationConflict && baseRecommendation === "적극 검토") {
-      // 3. 사업자등록 필수 신호
-      recommendation = "조건 확인";
-      recommendationReason = "점수는 높지만 이미 사업자등록을 마친 기업 대상으로 보여 조건 확인으로 분류했습니다.";
-    } else if (baseRecommendation === "적극 검토" && fitScore >= 75 && riskFlags.length >= 2) {
-      // 4. 리스크 개수
+    if (recommendation === "적극 검토" && fitScore >= 75 && riskFlags.length >= 2) {
+      // listing page는 사업자등록·지원금을 절대 확인해주지 않으므로 riskFlags는
+      // 사실상 항상 2개 이상이라, 이 데이터 소스에서는 "적극 검토"가 구조적으로
+      // 나오기 어렵다 — 의도된 보수적 동작.
       recommendation = "조건 확인";
       recommendationReason = "일부 조건은 맞지만 지원금·사업자등록·상세 지원내용 확인이 필요해 조건 확인으로 분류했습니다.";
+    } else if (recommendation === "적극 검토") {
+      recommendationReason = "우선 조건과 잘 맞고 확인되지 않은 리스크도 적어 적극 검토로 분류했습니다.";
+    } else if (recommendation === "조건 확인") {
+      recommendationReason = "일부 조건은 맞지만 지원금·사업자등록·상세 지원내용 확인이 필요해 조건 확인으로 분류했습니다.";
+    } else if (recommendation === "보류") {
+      recommendationReason = "관련성이 낮거나 현재 준비 가능성이 낮아 보류로 분류했습니다.";
     } else {
-      // 5. 최종 점수 기준
-      recommendation = baseRecommendation;
-      if (recommendation === "적극 검토") {
-        recommendationReason = "우선 조건과 잘 맞고 확인되지 않은 리스크도 적어 적극 검토로 분류했습니다.";
-      } else if (recommendation === "조건 확인") {
-        recommendationReason = "일부 조건은 맞지만 지원금·사업자등록·상세 지원내용 확인이 필요해 조건 확인으로 분류했습니다.";
-      } else if (recommendation === "보류") {
-        recommendationReason = "관련성이 낮거나 현재 준비 가능성이 낮아 보류로 분류했습니다.";
-      } else {
-        recommendationReason = "점수가 낮아 우선순위와 맞지 않는 것으로 보여 제외로 분류했습니다.";
-      }
+      recommendationReason = "점수가 낮아 우선순위와 맞지 않는 것으로 보여 제외로 분류했습니다.";
     }
   }
 
   // Fold recommendationReason into the existing matchReasons/riskFlags lists
   // so the modal's existing "왜 추천하는지"/"리스크" sections (unchanged)
-  // surface it without any new UI area — see server.js for how these map to
-  // g.whyReasons/g.risks.
+  // surface it without any new UI area — see classifyGrant() for how these
+  // map to grant.whyReasons/grant.risks.
   if (recommendation === "적극 검토") {
     matchReasons.unshift(recommendationReason);
   } else {
@@ -259,4 +262,34 @@ export function calculateMatchScore(grant, profile = kogiProfile) {
   }
 
   return { fitScore, scoreBreakdown, recommendation, recommendationReason, matchReasons, riskFlags };
+}
+
+const DEFAULT_CONDITIONS_TO_CHECK = [
+  { label: "사업자등록 필요 여부", value: "확인 필요" },
+  { label: "업력 조건", value: "확인 필요" },
+  { label: "지역 조건", value: "확인 필요" },
+  { label: "자부담 여부", value: "확인 필요" },
+  { label: "선정 후 의무사항", value: "확인 필요" },
+];
+
+// baseGrant + 채점 결과를 합쳐 UI가 기대하는 완성된 grant 객체를 만든다.
+// baseGrant에 이미 값이 있는 필드(예: 미래의 실제 API가 supportAmount를 직접
+// 아는 경우)는 그대로 유지하고, 없는 것만 "확인 필요" 기본값으로 채운다 —
+// 그래야 데이터 소스가 바뀌어도(스크래핑 -> 공식 API) 이 함수를 고칠 필요가 없다.
+export function classifyGrant(baseGrant, profile = kogiProfile) {
+  const match = calculateMatchScore(baseGrant, profile);
+  return {
+    ...baseGrant,
+    fitScore: match.fitScore,
+    scoreBreakdown: match.scoreBreakdown,
+    recommendation: match.recommendation,
+    recommendationReason: match.recommendationReason,
+    matchReasons: match.matchReasons,
+    riskFlags: match.riskFlags,
+    whyReasons: match.matchReasons,
+    risks: match.riskFlags,
+    conditionsToCheck: baseGrant.conditionsToCheck || DEFAULT_CONDITIONS_TO_CHECK,
+    strategy: baseGrant.strategy || ["확인 필요"],
+    summary: baseGrant.summary || `[${baseGrant.organization || "확인 필요"}] 지원분야: ${(baseGrant.supportType || []).join("/") || "확인 필요"} · 마감일: ${baseGrant.applicationEndDate || "확인 필요"}`,
+  };
 }
