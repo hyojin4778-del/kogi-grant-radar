@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-11T07:22:13.936Z",
+  "lastUpdated": "2026-07-12T07:50:17.795Z",
   "dataSource": "live",
   "message": null,
   "grants": [
@@ -20,7 +20,7 @@
       "applicationEndDate": "2026-07-30",
       "dDay": null,
       "target": "확인 필요",
-      "description": "[공공] 지원분야: 시설ㆍ공간ㆍ보육 · 등록일자: 2026-07-10 · 조회수: 615",
+      "description": "[공공] 지원분야: 시설ㆍ공간ㆍ보육 · 등록일자: 2026-07-10 · 조회수: 1,185",
       "requirements": [
         "확인 필요"
       ],
@@ -29,7 +29,7 @@
       ],
       "contact": "확인 필요",
       "dataStatus": "needs_review",
-      "verifiedAt": "2026-07-11T07:22:13.928Z",
+      "verifiedAt": "2026-07-12T07:50:17.786Z",
       "deadlineStatus": null,
       "summary": "[공공] 지원분야: 시설ㆍ공간ㆍ보육 · 마감일: 2026-07-30",
       "fitScore": 55,
@@ -122,7 +122,7 @@
       "applicationEndDate": "2026-07-31",
       "dDay": null,
       "target": "확인 필요",
-      "description": "[교육] 지원분야: 창업교육 · 등록일자: 2026-07-10 · 조회수: 494",
+      "description": "[교육] 지원분야: 창업교육 · 등록일자: 2026-07-10 · 조회수: 968",
       "requirements": [
         "확인 필요"
       ],
@@ -131,7 +131,7 @@
       ],
       "contact": "확인 필요",
       "dataStatus": "needs_review",
-      "verifiedAt": "2026-07-11T07:22:13.929Z",
+      "verifiedAt": "2026-07-12T07:50:17.788Z",
       "deadlineStatus": null,
       "summary": "[교육] 지원분야: 창업교육 · 마감일: 2026-07-31",
       "fitScore": 53,
@@ -222,7 +222,7 @@
       "applicationEndDate": "2026-07-31",
       "dDay": null,
       "target": "확인 필요",
-      "description": "[공공] 지원분야: 시설ㆍ공간ㆍ보육 · 등록일자: 2026-07-10 · 조회수: 402",
+      "description": "[공공] 지원분야: 시설ㆍ공간ㆍ보육 · 등록일자: 2026-07-10 · 조회수: 815",
       "requirements": [
         "확인 필요"
       ],
@@ -231,7 +231,7 @@
       ],
       "contact": "확인 필요",
       "dataStatus": "needs_review",
-      "verifiedAt": "2026-07-11T07:22:13.930Z",
+      "verifiedAt": "2026-07-12T07:50:17.788Z",
       "deadlineStatus": null,
       "summary": "[공공] 지원분야: 시설ㆍ공간ㆍ보육 · 마감일: 2026-07-31",
       "fitScore": 55,
@@ -324,7 +324,7 @@
       "applicationEndDate": "2026-07-20",
       "dDay": null,
       "target": "확인 필요",
-      "description": "[공공] 지원분야: 시설ㆍ공간ㆍ보육 · 등록일자: 2026-07-10 · 조회수: 469",
+      "description": "[공공] 지원분야: 시설ㆍ공간ㆍ보육 · 등록일자: 2026-07-10 · 조회수: 918",
       "requirements": [
         "확인 필요"
       ],
@@ -333,7 +333,7 @@
       ],
       "contact": "확인 필요",
       "dataStatus": "needs_review",
-      "verifiedAt": "2026-07-11T07:22:13.930Z",
+      "verifiedAt": "2026-07-12T07:50:17.789Z",
       "deadlineStatus": null,
       "summary": "[공공] 지원분야: 시설ㆍ공간ㆍ보육 · 마감일: 2026-07-20",
       "fitScore": 67,
@@ -426,7 +426,7 @@
       "applicationEndDate": "2026-07-14",
       "dDay": null,
       "target": "확인 필요",
-      "description": "[공공] 지원분야: 창업교육 · 등록일자: 2026-07-10 · 조회수: 433",
+      "description": "[공공] 지원분야: 창업교육 · 등록일자: 2026-07-10 · 조회수: 843",
       "requirements": [
         "확인 필요"
       ],
@@ -435,7 +435,7 @@
       ],
       "contact": "확인 필요",
       "dataStatus": "needs_review",
-      "verifiedAt": "2026-07-11T07:22:13.931Z",
+      "verifiedAt": "2026-07-12T07:50:17.789Z",
       "deadlineStatus": null,
       "summary": "[공공] 지원분야: 창업교육 · 마감일: 2026-07-14",
       "fitScore": 50,
@@ -470,7 +470,7 @@
       "riskFlags": [
         "관련성이 낮거나 현재 준비 가능성이 낮아 보류로 분류했습니다.",
         "관심 지원분야와의 직접 연관 여부가 불명확합니다.",
-        "마감까지 3일 이내로 임박해 서류 준비 시간이 부족할 수 있습니다.",
+        "마감까지 2일 이내로 임박해 서류 준비 시간이 부족할 수 있습니다.",
         "목록 페이지에서 사업자등록 필요 여부를 확인할 수 없습니다.",
         "지원금/예산 정보가 목록에 없어 상세 공고 확인이 필요합니다."
       ],
@@ -481,7 +481,7 @@
       "risks": [
         "관련성이 낮거나 현재 준비 가능성이 낮아 보류로 분류했습니다.",
         "관심 지원분야와의 직접 연관 여부가 불명확합니다.",
-        "마감까지 3일 이내로 임박해 서류 준비 시간이 부족할 수 있습니다.",
+        "마감까지 2일 이내로 임박해 서류 준비 시간이 부족할 수 있습니다.",
         "목록 페이지에서 사업자등록 필요 여부를 확인할 수 없습니다.",
         "지원금/예산 정보가 목록에 없어 상세 공고 확인이 필요합니다."
       ],
@@ -528,7 +528,7 @@
       "applicationEndDate": "2026-07-24",
       "dDay": null,
       "target": "확인 필요",
-      "description": "[민간] 지원분야: 인력 · 등록일자: 2026-07-10 · 조회수: 455",
+      "description": "[민간] 지원분야: 인력 · 등록일자: 2026-07-10 · 조회수: 875",
       "requirements": [
         "확인 필요"
       ],
@@ -537,7 +537,7 @@
       ],
       "contact": "확인 필요",
       "dataStatus": "needs_review",
-      "verifiedAt": "2026-07-11T07:22:13.932Z",
+      "verifiedAt": "2026-07-12T07:50:17.790Z",
       "deadlineStatus": null,
       "summary": "[민간] 지원분야: 인력 · 마감일: 2026-07-24",
       "fitScore": 51,
@@ -628,7 +628,7 @@
       "applicationEndDate": "2026-07-30",
       "dDay": null,
       "target": "확인 필요",
-      "description": "[교육] 지원분야: 사업화 · 등록일자: 2026-07-10 · 조회수: 460",
+      "description": "[교육] 지원분야: 사업화 · 등록일자: 2026-07-10 · 조회수: 861",
       "requirements": [
         "확인 필요"
       ],
@@ -637,7 +637,7 @@
       ],
       "contact": "확인 필요",
       "dataStatus": "needs_review",
-      "verifiedAt": "2026-07-11T07:22:13.932Z",
+      "verifiedAt": "2026-07-12T07:50:17.790Z",
       "deadlineStatus": null,
       "summary": "[교육] 지원분야: 사업화 · 마감일: 2026-07-30",
       "fitScore": 57,
@@ -728,7 +728,7 @@
       "applicationEndDate": "2026-07-21",
       "dDay": null,
       "target": "확인 필요",
-      "description": "[공공] 지원분야: 사업화 · 등록일자: 2026-07-10 · 조회수: 554",
+      "description": "[공공] 지원분야: 사업화 · 등록일자: 2026-07-10 · 조회수: 1,080",
       "requirements": [
         "확인 필요"
       ],
@@ -737,7 +737,7 @@
       ],
       "contact": "확인 필요",
       "dataStatus": "needs_review",
-      "verifiedAt": "2026-07-11T07:22:13.932Z",
+      "verifiedAt": "2026-07-12T07:50:17.790Z",
       "deadlineStatus": null,
       "summary": "[공공] 지원분야: 사업화 · 마감일: 2026-07-21",
       "fitScore": 49,
@@ -828,7 +828,7 @@
       "applicationEndDate": "2026-07-15",
       "dDay": null,
       "target": "확인 필요",
-      "description": "[공공] 지원분야: 행사ㆍ네트워크 · 등록일자: 2026-07-10 · 조회수: 454",
+      "description": "[공공] 지원분야: 행사ㆍ네트워크 · 등록일자: 2026-07-10 · 조회수: 853",
       "requirements": [
         "확인 필요"
       ],
@@ -837,7 +837,7 @@
       ],
       "contact": "확인 필요",
       "dataStatus": "needs_review",
-      "verifiedAt": "2026-07-11T07:22:13.933Z",
+      "verifiedAt": "2026-07-12T07:50:17.791Z",
       "deadlineStatus": null,
       "summary": "[공공] 지원분야: 행사ㆍ네트워크 · 마감일: 2026-07-15",
       "fitScore": 46,
@@ -873,7 +873,7 @@
         "서울·경기·인천 외 지역으로 추정되어 선호 지역과 거리가 있어 확인이 필요합니다.",
         "행사·네트워크성 지원으로 직접적인 자금 지원과는 거리가 있습니다.",
         "관심 지원분야와의 직접 연관 여부가 불명확합니다.",
-        "마감까지 4일 이내로 임박해 서류 준비 시간이 부족할 수 있습니다.",
+        "마감까지 3일 이내로 임박해 서류 준비 시간이 부족할 수 있습니다.",
         "목록 페이지에서 사업자등록 필요 여부를 확인할 수 없습니다.",
         "지원금/예산 정보가 목록에 없어 상세 공고 확인이 필요합니다."
       ],
@@ -885,7 +885,7 @@
         "서울·경기·인천 외 지역으로 추정되어 선호 지역과 거리가 있어 확인이 필요합니다.",
         "행사·네트워크성 지원으로 직접적인 자금 지원과는 거리가 있습니다.",
         "관심 지원분야와의 직접 연관 여부가 불명확합니다.",
-        "마감까지 4일 이내로 임박해 서류 준비 시간이 부족할 수 있습니다.",
+        "마감까지 3일 이내로 임박해 서류 준비 시간이 부족할 수 있습니다.",
         "목록 페이지에서 사업자등록 필요 여부를 확인할 수 없습니다.",
         "지원금/예산 정보가 목록에 없어 상세 공고 확인이 필요합니다."
       ],
@@ -932,7 +932,7 @@
       "applicationEndDate": "2026-08-18",
       "dDay": null,
       "target": "확인 필요",
-      "description": "[민간] 지원분야: 멘토링ㆍ컨설팅ㆍ교육 · 등록일자: 2026-07-10 · 조회수: 509",
+      "description": "[민간] 지원분야: 멘토링ㆍ컨설팅ㆍ교육 · 등록일자: 2026-07-10 · 조회수: 998",
       "requirements": [
         "확인 필요"
       ],
@@ -941,7 +941,7 @@
       ],
       "contact": "확인 필요",
       "dataStatus": "needs_review",
-      "verifiedAt": "2026-07-11T07:22:13.933Z",
+      "verifiedAt": "2026-07-12T07:50:17.791Z",
       "deadlineStatus": null,
       "summary": "[민간] 지원분야: 멘토링ㆍ컨설팅ㆍ교육 · 마감일: 2026-08-18",
       "fitScore": 55,
@@ -1032,7 +1032,7 @@
       "applicationEndDate": "2026-08-07",
       "dDay": null,
       "target": "확인 필요",
-      "description": "[공공] 지원분야: 사업화 · 등록일자: 2026-07-10 · 조회수: 640",
+      "description": "[공공] 지원분야: 사업화 · 등록일자: 2026-07-10 · 조회수: 1,103",
       "requirements": [
         "확인 필요"
       ],
@@ -1041,7 +1041,7 @@
       ],
       "contact": "확인 필요",
       "dataStatus": "needs_review",
-      "verifiedAt": "2026-07-11T07:22:13.933Z",
+      "verifiedAt": "2026-07-12T07:50:17.792Z",
       "deadlineStatus": null,
       "summary": "[공공] 지원분야: 사업화 · 마감일: 2026-08-07",
       "fitScore": 61,
@@ -1132,7 +1132,7 @@
       "applicationEndDate": "2026-07-26",
       "dDay": null,
       "target": "확인 필요",
-      "description": "[민간] 지원분야: 멘토링ㆍ컨설팅ㆍ교육 · 등록일자: 2026-07-10 · 조회수: 407",
+      "description": "[민간] 지원분야: 멘토링ㆍ컨설팅ㆍ교육 · 등록일자: 2026-07-10 · 조회수: 816",
       "requirements": [
         "확인 필요"
       ],
@@ -1141,7 +1141,7 @@
       ],
       "contact": "확인 필요",
       "dataStatus": "needs_review",
-      "verifiedAt": "2026-07-11T07:22:13.934Z",
+      "verifiedAt": "2026-07-12T07:50:17.792Z",
       "deadlineStatus": null,
       "summary": "[민간] 지원분야: 멘토링ㆍ컨설팅ㆍ교육 · 마감일: 2026-07-26",
       "fitScore": 53,
@@ -1232,7 +1232,7 @@
       "applicationEndDate": "2026-07-21",
       "dDay": null,
       "target": "확인 필요",
-      "description": "[교육] 지원분야: 시설ㆍ공간ㆍ보육 · 등록일자: 2026-07-10 · 조회수: 451",
+      "description": "[교육] 지원분야: 시설ㆍ공간ㆍ보육 · 등록일자: 2026-07-10 · 조회수: 878",
       "requirements": [
         "확인 필요"
       ],
@@ -1241,7 +1241,7 @@
       ],
       "contact": "확인 필요",
       "dataStatus": "needs_review",
-      "verifiedAt": "2026-07-11T07:22:13.934Z",
+      "verifiedAt": "2026-07-12T07:50:17.793Z",
       "deadlineStatus": null,
       "summary": "[교육] 지원분야: 시설ㆍ공간ㆍ보육 · 마감일: 2026-07-21",
       "fitScore": 55,
@@ -1334,7 +1334,7 @@
       "applicationEndDate": "2026-12-31",
       "dDay": null,
       "target": "확인 필요",
-      "description": "[공공] 지원분야: 사업화 · 등록일자: 2026-07-10 · 조회수: 455",
+      "description": "[공공] 지원분야: 사업화 · 등록일자: 2026-07-10 · 조회수: 856",
       "requirements": [
         "확인 필요"
       ],
@@ -1343,7 +1343,7 @@
       ],
       "contact": "확인 필요",
       "dataStatus": "needs_review",
-      "verifiedAt": "2026-07-11T07:22:13.934Z",
+      "verifiedAt": "2026-07-12T07:50:17.793Z",
       "deadlineStatus": null,
       "summary": "[공공] 지원분야: 사업화 · 마감일: 2026-12-31",
       "fitScore": 55,
@@ -1434,7 +1434,7 @@
       "applicationEndDate": "2026-08-10",
       "dDay": null,
       "target": "확인 필요",
-      "description": "[공공] 지원분야: 사업화 · 등록일자: 2026-07-10 · 조회수: 1,349",
+      "description": "[공공] 지원분야: 사업화 · 등록일자: 2026-07-10 · 조회수: 2,434",
       "requirements": [
         "확인 필요"
       ],
@@ -1443,10 +1443,10 @@
       ],
       "contact": "확인 필요",
       "dataStatus": "needs_review",
-      "verifiedAt": "2026-07-11T07:22:13.934Z",
+      "verifiedAt": "2026-07-12T07:50:17.793Z",
       "deadlineStatus": null,
       "summary": "[공공] 지원분야: 사업화 · 마감일: 2026-08-10",
-      "fitScore": 63,
+      "fitScore": 61,
       "scoreBreakdown": {
         "region": {
           "score": 10,
@@ -1465,7 +1465,7 @@
           "max": 20
         },
         "readiness": {
-          "score": 9,
+          "score": 7,
           "max": 10
         }
       },
