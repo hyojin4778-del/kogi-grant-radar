@@ -1,17 +1,14 @@
 {
   "name": "kogi-grant-fit-checker",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
   "type": "module",
-  "description": "KOGI Grant Radar - static frontend served by an Express backend, with a backend-only route prepared for real K-Startup API integration",
+  "description": "KOGI 지원사업 레이더 - ir-search 워크플로(K-Startup/기업마당/NIPA/KOCCA/SMTECH 다중 소스, 상세검증, A/B/C 분류) 기반 지원사업 대시보드. 대시보드 서버는 data/latest.json을 읽기만 하며, 수집·분류는 collector/ 파이썬 스크립트와 Claude Code 세션(재조사 요청)이 담당한다.",
   "scripts": {
     "start": "node server.js",
-    "dev": "node --watch server.js",
-    "update-grants": "node scripts/update-grants.js"
+    "dev": "node --watch server.js"
   },
   "dependencies": {
-    "cheerio": "^1.2.0",
-    "dotenv": "^16.4.5",
     "express": "^4.19.2"
   }
 }

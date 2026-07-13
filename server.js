@@ -1,58 +1,76 @@
-// Express backend for KOGI Grant Radar.
+// Express backend for KOGI 지원사업 레이더.
 //
 // Purpose:
-//   1. Serve the existing static frontend (index.html, data/, services/,
-//      etc.) exactly as before.
-//   2. Serve /api/grants/kstartup by reading the pre-built snapshot at
-//      data/grants.json — NOT by scraping K-Startup on every request. The
-//      snapshot is produced by `npm run update-grants` (scripts/update-grants.js),
-//      run on a schedule (see render.yaml / .github/workflows/update-grants.yml)
-//      so freshness is controlled by that job, not by page-load traffic.
+//   1. Serve the static dashboard (public/index.html, app.js, styles.css).
+//   2. Serve /api/grants by reading data/latest.json — a snapshot produced
+//      either by GitHub Actions (raw collection only, see
+//      .github/workflows/update-grants.yml) or, for the actual classified
+//      data the dashboard shows, by a Claude Code session running the
+//      ir-search workflow ("지원사업 재조사해줘" — see CLAUDE.md). This
+//      server never scrapes or classifies anything itself.
 
-import "dotenv/config"; // loads .env into process.env if one exists; safe no-op otherwise — see README.md, no real .env should exist yet
 import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
 import { readFile } from "fs/promises";
-import { mockGrants } from "./data/mockGrants.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const GRANTS_SNAPSHOT_PATH = path.join(__dirname, "data", "grants.json");
+const LATEST_PATH = path.join(__dirname, "data", "latest.json");
+const PUBLIC_DIR = path.join(__dirname, "public");
+const REPORTS_ROOT = path.join(__dirname, "reports");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Serves index.html, data/*.js, services/*.js, etc. unchanged.
-// Note: express.static ignores dotfiles (e.g. a real .env) by default — see
-// README.md, that's still not a reason to ever put a real .env here.
-app.use(express.static(__dirname));
+app.use(express.static(PUBLIC_DIR));
 
-app.get("/api/grants/kstartup", async (req, res) => {
+// Serves only the single report.md referenced by data/latest.json's reportPath —
+// not a static mount of reports/, so raw jsonl/details subfolders stay unreachable.
+app.get("/api/report", async (req, res) => {
   try {
-    const raw = await readFile(GRANTS_SNAPSHOT_PATH, "utf-8");
-    const snapshot = JSON.parse(raw);
-    return res.json({
-      ok: true,
-      grants: snapshot.grants,
-      dataSource: snapshot.dataSource,
-      lastUpdated: snapshot.lastUpdated,
-      message: snapshot.message,
-    });
+    const raw = await readFile(LATEST_PATH, "utf-8");
+    const { reportPath } = JSON.parse(raw);
+    if (!reportPath) {
+      return res.status(404).send("보고서 경로가 없습니다.");
+    }
+
+    const resolved = path.resolve(__dirname, reportPath);
+    const relative = path.relative(REPORTS_ROOT, resolved);
+    const isInsideReports = relative && !relative.startsWith("..") && !path.isAbsolute(relative);
+    const isReportMd = path.basename(resolved) === "report.md";
+    if (!isInsideReports || !isReportMd) {
+      return res.status(400).send("허용되지 않은 경로입니다.");
+    }
+
+    const content = await readFile(resolved, "utf-8");
+    res.type("text/plain; charset=utf-8").send(content);
   } catch (err) {
-    // data/grants.json missing or unreadable (e.g. `npm run update-grants`
-    // has never been run in this environment) — fall back to the bundled
-    // mockGrants so the page never breaks, same as the old live-scrape route
-    // did on failure.
+    return res.status(404).send("보고서를 찾을 수 없습니다.");
+  }
+});
+
+app.get("/api/grants", async (req, res) => {
+  try {
+    const raw = await readFile(LATEST_PATH, "utf-8");
+    const snapshot = JSON.parse(raw);
+    return res.json({ ok: true, ...snapshot });
+  } catch (err) {
+    // data/latest.json missing or unreadable (no survey run yet) — return an
+    // empty-but-valid shape so the dashboard can show a clear empty state
+    // instead of breaking. See docs/grants-json-schema.md for the real shape.
     return res.json({
       ok: true,
-      grants: mockGrants,
-      dataSource: "mock",
-      lastUpdated: null,
-      message: "저장된 공고 스냅샷을 찾을 수 없어 mock 데이터를 표시합니다 — npm run update-grants를 실행해보세요.",
+      generatedAt: null,
+      profileSummary: null,
+      sources: [],
+      reportPath: null,
+      counts: { A: 0, B: 0, C: 0, "제외": 0 },
+      grants: [],
+      message: "아직 조사 결과가 없습니다. Claude Code에서 \"지원사업 재조사해줘\"라고 요청하세요.",
     });
   }
 });
 
 app.listen(PORT, () => {
-  console.log(`KOGI Grant Radar server listening at http://localhost:${PORT}`);
+  console.log(`KOGI 지원사업 레이더 서버 실행 중: http://localhost:${PORT}`);
 });

@@ -1,101 +1,81 @@
-# KOGI Grant Radar
+# KOGI 지원사업 레이더
 
-Personal dashboard that automatically checks new 창업지원사업 공고 (startup
-grant announcements) and classifies each one into **추천 / 조건 확인 / 제외**
-for KOGI (키링형 보조배터리 브랜드), based on a single editable business
-profile — no manual paste-in required for the main flow.
+K-Startup·기업마당·NIPA·KOCCA·SMTECH 5개 소스의 창업지원사업 공고를 조사해
+KOGI(키링형 보조배터리 브랜드) 기준으로 **A(즉시 지원 가능) / B(요건 충족 시) /
+C(변형하면 가능)** 3단계로 분류하고, 그 결과를 웹 대시보드로 보여주는 프로젝트.
 
-## Architecture
+ir-search 스킬(전역 설치됨)의 크롤러·워크플로를 이 프로젝트 구조에 맞게 이식했습니다.
+
+## 아키텍처
 
 ```
-services/kstartupSource.js   fetch + parse K-Startup's public listing page
-                              (temporary MVP source — see docs/kstartup-api-checklist.md
-                              for the pending official OpenAPI integration)
+collector/kstartup_crawl.py, sources_crawl.py   원시 목록 수집 (Python, LLM 불필요)
+        │
+        ▼  (GitHub Actions가 매일 자동 실행)
+reports/raw/<날짜>/*.jsonl                       순수 로그 — 분류 없음
+```
+
+```
+"지원사업 재조사해줘" (Claude Code 세션)
+        │
+        ▼  ir-search 워크플로 2~4단계: 전수 검토 → 상세검증(원문) → A/B/C 분류
+reports/<날짜>/report.md, grants.json
         │
         ▼
-matchingEngine.js             classifyGrant(): scores each grant against
-                              data/kogiProfile.js and assigns
-                              추천 / 조건 확인 / 보류 / 제외
+data/latest.json  ← grants.json 복사
         │
         ▼
-scripts/update-grants.js      orchestrates the two steps above and writes a
-                              timestamped snapshot to data/grants.json
-        │
-        ▼
-server.js                     serves data/grants.json via /api/grants/kstartup
-                              (reads the file — does NOT scrape on every
-                              request, so page loads stay fast)
-        │
-        ▼
-index.html                    fetches from the server and renders the
-                              추천/조건확인/제외 dashboard, with a
-                              마지막 업데이트 timestamp
+server.js  →  /api/grants  →  public/ 대시보드
 ```
 
-**Business profile — `data/kogiProfile.js`** is the single source of truth
-for KOGI's current status (사업자등록 상태, 창업단계, 선호지역, 관심
-지원분야, 제외 규칙). Edit that one file when the business status changes
-(사업자 등록 완료, 창업 1년 미만, 법인 전환, etc.) — every part of the app
-picks it up automatically.
+자세한 규칙은 프로젝트 루트 `CLAUDE.md`(재조사 워크플로)와
+`docs/grants-json-schema.md`(JSON 계약)를 참고하세요.
 
-## Running locally
+## 로컬 실행
 
-```
-npm install   # first time only
-npm run update-grants   # fetch + classify today's grants -> data/grants.json
-npm start                # or: npm run dev (auto-restarts on file changes)
+```bash
+npm install
+npm start          # 또는: npm run dev (파일 변경 시 자동 재시작)
 ```
 
-Open **http://localhost:3000**. `type="module"` script imports require the
-app to be served over `http://` — opening `index.html` directly via `file://`
-will fail with a CORS error in the console.
+http://localhost:3000 에서 확인. 아직 조사 결과가 없으면 대시보드가 빈 상태 안내를 보여줍니다.
 
-`data/grants.json` is committed to the repo (not gitignored) so a fresh
-checkout/deploy always has *some* data to serve, even before the first
-scheduled update runs.
+## 지원사업 재조사
 
-## Keeping data fresh automatically
-
-- **`.github/workflows/update-grants.yml`** — a GitHub Actions workflow that
-  runs `npm run update-grants` daily (09:00 KST) and commits `data/grants.json`
-  back to the repo if it changed. This is what actually keeps the deployed
-  site fresh without you opening a terminal: Render (or any host with
-  auto-deploy-on-push) redeploys automatically when this commit lands.
-- **`render.yaml`** — also defines a Render **cron job** that runs
-  `npm run update-grants` on the same schedule, as a Render-native option.
-  Important limitation: on Render's free tier, a cron job and a web service
-  don't share a filesystem, so the cron job's own `data/grants.json` never
-  reaches the running web service by itself — see the comment at the top of
-  `render.yaml`. The GitHub Actions workflow above is what closes that loop
-  in practice; the Render cron job is provided because it was explicitly
-  requested, but treat it as redundant/optional unless you later add a
-  shared persistent disk.
-
-## Security notes — read before adding a real API key
-
-**1. Never create a real `.env` file in this project.**
-Only `.env.example` (with empty placeholder values) should exist here. It
-documents the two variables a future backend will need:
+Claude Code에서 이 프로젝트 폴더를 열고:
 
 ```
-KSTARTUP_API_KEY=
-BIZINFO_API_KEY=
+지원사업 재조사해줘
 ```
 
-**2. `.gitignore` already excludes `.env` and `node_modules/`** so a real
-`.env` can never be committed by accident — but that's a second line of
-defense, not the main one (see #3).
+라고 요청하면 `ir-search-profile.md` 기준으로 5개 소스를 전수 조사하고,
+`reports/<날짜>/report.md`와 `data/latest.json`을 생성합니다. 두 번째 실행부터는
+`ir-search-profile.md`의 "마지막 조사" 경로를 기준으로 증분(diff) 조사가 됩니다.
 
-**3. The static file server matters for dotfile exposure.** `server.js` uses
-`express.static`, which ignores dotfiles by default (`.env.example` returns
-`404`). That's a real improvement over a plain static server, but it's still
-not a reason to ever place a real `.env` in this project root — the rule
-stays "never put a real secret in a folder a static server exposes."
+수집기만 수동으로 돌리고 싶다면:
 
-**4. No real API key is in use yet.** `services/kstartupSource.js` scrapes
-K-Startup's public HTML listing page as a temporary MVP data source — no
-`KSTARTUP_API_KEY` is read or needed for that. When the official
-공공데이터포털 OpenAPI integration is confirmed (see
-`docs/kstartup-api-checklist.md`), a new source module should read the key
-server-side only (inside a script or `server.js`, via `process.env`), never
-in `index.html` or any browser-side file.
+```bash
+pip install -r requirements.txt
+python3 collector/kstartup_crawl.py list -o kstartup_all.jsonl
+python3 collector/sources_crawl.py list all -o sources_all.jsonl --max-pages 20
+```
+
+## 자동 수집 (GitHub Actions)
+
+`.github/workflows/update-grants.yml`이 매일 09:00 KST에 5개 소스 원시 목록만
+수집해 `reports/raw/<날짜>/`에 커밋합니다. **A/B/C 분류나 상세검증은 하지
+않습니다** — 그 단계는 원문을 읽고 판단하는 작업이라 무인 자동화 대상이
+아니며, 위 "지원사업 재조사" 절차로만 갱신됩니다.
+
+## 배포
+
+- GitHub: https://github.com/hyojin4778-del/kogi-grant-radar
+- Render: `render.yaml` 블루프린트로 Web Service(대시보드)+Cron Job(원시 수집,
+  보조적) 구성. Render는 새 커밋이 push되면 자동 재배포합니다 — 즉
+  "지원사업 재조사" 후 `data/latest.json` 변경분을 커밋·push하면 배포된
+  화면에도 반영됩니다.
+
+## 보안 노트
+
+공식 API 키를 쓰지 않는 구조입니다 (공개 목록 페이지 스크래핑만 사용). `.env`
+파일을 이 프로젝트에 만들 필요가 없습니다.

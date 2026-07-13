@@ -1,0 +1,4 @@
+# collector/ 스크립트용 (ir-search 스킬과 동일 의존성).
+# 없어도 동작은 하지만(urllib로 폴백) 차단될 수 있어 설치를 권장함 — 각 스크립트의
+# make_fetcher() 주석 참고.
+curl_cffi>=0.15

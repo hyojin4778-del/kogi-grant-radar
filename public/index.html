@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KOGI 지원사업 레이더</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="page-header">
+    <div class="header-top">
+      <h1>KOGI 지원사업 레이더</h1>
+      <a id="reportLink" class="report-link" href="#" target="_blank" rel="noopener noreferrer" hidden>전체 보고서 보기 ↗</a>
+    </div>
+    <p id="profileSummary" class="profile-summary"></p>
+    <p id="metaLine" class="meta-line"></p>
+  </header>
+
+  <section id="statTiles" class="stat-tiles"></section>
+
+  <section class="controls">
+    <input id="searchInput" type="search" placeholder="공고명·기관명 검색" />
+    <div class="filter-group" id="sourceFilters"></div>
+    <div class="filter-group" id="groupFilters"></div>
+    <div class="filter-group" id="statusFilters"></div>
+  </section>
+
+  <main id="grantList" class="grant-list"></main>
+  <p id="emptyState" class="empty-state" hidden></p>
+
+  <div id="detailModal" class="modal" hidden>
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+    <div class="modal-panel">
+      <button id="modalClose" class="modal-close" aria-label="닫기">✕</button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
