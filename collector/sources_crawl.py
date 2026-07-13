@@ -26,9 +26,11 @@ Falls back to urllib; if blocked, an install hint is printed.
 import argparse
 import html as htmllib
 import json
+import os
 import re
 import sys
 import time
+from datetime import datetime, timezone
 
 DELAY = 0.4  # seconds between requests (politeness)
 
@@ -241,21 +243,23 @@ SOURCES = {
 
 
 def crawl(source, fetch, max_pages):
-    """Returns (items, failed). A page-fetch error (timeout, connection reset, ...)
-    stops this source early but keeps whatever was already collected, instead of
-    losing the other sources still queued behind it in main()."""
+    """Returns (items, error). `error` is None on full success, or a short string
+    describing what stopped this source (page + exception) — a page-fetch error
+    (timeout, connection reset, ...) stops this source early but keeps whatever was
+    already collected, instead of losing the other sources still queued behind it."""
     pager = SOURCES[source]
     seen = {}
     for page in range(1, max_pages + 1):
         try:
             items, has_more = pager(fetch, page)
         except Exception as e:  # noqa: BLE001 — one bad page shouldn't lose pages already collected
+            error = f"page {page}: {e}"
             print(
                 f"[ir-search] {source} p{page}: error {e} — stopping this source, "
                 f"keeping {len(seen)} collected so far",
                 file=sys.stderr,
             )
-            return list(seen.values()), True
+            return list(seen.values()), error
         new = [i for i in items if i["id"] not in seen]
         for i in items:
             seen[i["id"]] = i
@@ -266,7 +270,7 @@ def crawl(source, fetch, max_pages):
         if not has_more or not new:
             break
         time.sleep(DELAY)
-    return list(seen.values()), False
+    return list(seen.values()), None
 
 
 def strip_html(text):
@@ -300,6 +304,63 @@ def cmd_detail(fetch, urls, outdir):
         except Exception as e:  # noqa: BLE001 — skip failures, keep going
             print(f"[ir-search] {url[:60]}: error {e}", file=sys.stderr)
         time.sleep(DELAY)
+
+
+def run_list(fetch, source, output, max_pages):
+    """Collect one or all sources, write `output`, and (if any source failed)
+    write collection_errors.json next to it. Returns the process exit code:
+    0 on full success AND on partial success (>=1 item collected overall),
+    1 only when every source failed or the total collected is 0."""
+    names = list(SOURCES) if source == "all" else [source]
+    out = []
+    errors = {}  # source -> error message
+    for name in names:
+        try:
+            items, error = crawl(name, fetch, max_pages)
+        except Exception as e:  # noqa: BLE001 — defense in depth if crawl() itself errors unexpectedly
+            print(f"[ir-search] {name}: source failed entirely: {e}", file=sys.stderr)
+            items, error = [], str(e)
+        out.extend(items)
+        if error:
+            errors[name] = error
+        time.sleep(DELAY)
+
+    with open(output, "w", encoding="utf-8") as f:
+        for i in out:
+            f.write(json.dumps(i, ensure_ascii=False) + "\n")
+
+    if errors:
+        errors_path = os.path.join(os.path.dirname(output) or ".", "collection_errors.json")
+        with open(errors_path, "w", encoding="utf-8") as f:
+            json.dump(
+                {
+                    "checkedAt": datetime.now(timezone.utc).isoformat(),
+                    "totalCollected": len(out),
+                    "succeededSources": [n for n in names if n not in errors],
+                    "failedSources": list(errors.keys()),
+                    "errors": errors,
+                },
+                f,
+                ensure_ascii=False,
+                indent=2,
+            )
+        print(f"[ir-search] failed sources logged: {errors_path}", file=sys.stderr)
+
+    print(f"[ir-search] saved: {output} ({len(out)} items)", file=sys.stderr)
+
+    if len(out) == 0:
+        reason = f"failed sources: {', '.join(errors.keys())}" if errors else "no items found"
+        print(f"[ir-search] TOTAL FAILURE — 0 items collected ({reason})", file=sys.stderr)
+        return 1
+    if errors:
+        print(
+            f"[ir-search] PARTIAL SUCCESS — {len(out)} items collected, "
+            f"failed sources: {', '.join(errors.keys())}",
+            file=sys.stderr,
+        )
+        return 0
+    print("[ir-search] OK — all sources succeeded", file=sys.stderr)
+    return 0
 
 
 def main():
@@ -337,27 +398,7 @@ def main():
         cmd_detail(fetch, args.urls, args.output)
         return
 
-    names = list(SOURCES) if args.source == "all" else [args.source]
-    out = []
-    failed_sources = []
-    for name in names:
-        try:
-            items, source_failed = crawl(name, fetch, args.max_pages)
-        except Exception as e:  # noqa: BLE001 — defense in depth if crawl() itself errors unexpectedly
-            print(f"[ir-search] {name}: source failed entirely: {e}", file=sys.stderr)
-            failed_sources.append(name)
-            continue
-        out.extend(items)
-        if source_failed:
-            failed_sources.append(name)
-        time.sleep(DELAY)
-    with open(args.output, "w", encoding="utf-8") as f:
-        for i in out:
-            f.write(json.dumps(i, ensure_ascii=False) + "\n")
-    status = "OK" if not failed_sources else f"PARTIAL (failed: {', '.join(failed_sources)})"
-    print(f"[ir-search] saved: {args.output} ({len(out)} items) — {status}", file=sys.stderr)
-    if failed_sources:
-        sys.exit(1)
+    sys.exit(run_list(fetch, args.source, args.output, args.max_pages))
 
 
 if __name__ == "__main__":
