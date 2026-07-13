@@ -33,29 +33,57 @@ import time
 from datetime import datetime, timezone
 
 DELAY = 0.4  # seconds between requests (politeness)
+REQUEST_TIMEOUT = 45  # seconds per HTTP request (was 30 — GitHub-hosted runner IPs
+# to Korean gov/quasi-gov sites sometimes need longer to time out or succeed than a
+# home connection does)
+MAX_RETRIES = 2  # extra attempts after the first (3 total tries) per request
+BACKOFF_BASE = 3  # seconds; exponential backoff between retries: 3s, 6s
+
+
+def with_retry(fn, *, retries=MAX_RETRIES, backoff_base=BACKOFF_BASE, label="request"):
+    """Call fn() with up to `retries` extra attempts on exception, sleeping
+    backoff_base * 2**attempt seconds between attempts (exponential backoff).
+    Re-raises the last exception if every attempt fails."""
+    last_exc = None
+    for attempt in range(retries + 1):
+        try:
+            return fn()
+        except Exception as e:  # noqa: BLE001 — retry network hiccups before giving up
+            last_exc = e
+            if attempt < retries:
+                delay = backoff_base * (2**attempt)
+                print(
+                    f"[ir-search] {label}: attempt {attempt + 1}/{retries + 1} failed ({e}) "
+                    f"— retrying in {delay}s",
+                    file=sys.stderr,
+                )
+                time.sleep(delay)
+    raise last_exc
 
 
 def make_fetcher():
-    """Prefer curl_cffi (Safari TLS fingerprint); fall back to urllib."""
+    """Prefer curl_cffi (Safari TLS fingerprint); fall back to urllib. Every request
+    is retried (with_retry) before the caller ever sees a failure, so a single slow
+    or dropped connection no longer immediately kills the source."""
     try:
         from curl_cffi import requests as cr
 
         sess = cr.Session(impersonate="safari")
 
-        def fetch(url, data=None):
+        def raw_fetch(url, data=None):
             # data=dict switches to a POST form submit (some boards paginate that way)
             if data is None:
-                r = sess.get(url, timeout=30)
+                r = sess.get(url, timeout=REQUEST_TIMEOUT)
             else:
-                r = sess.post(url, data=data, timeout=30)
+                r = sess.post(url, data=data, timeout=REQUEST_TIMEOUT)
             return r.status_code, r.text
 
-        return fetch, "curl_cffi"
+        backend = "curl_cffi"
     except ImportError:
         import urllib.parse
         import urllib.request
 
-        def fetch(url, data=None):
+        def raw_fetch(url, data=None):
             body = urllib.parse.urlencode(data).encode() if data is not None else None
             req = urllib.request.Request(
                 url,
@@ -67,10 +95,15 @@ def make_fetcher():
                     )
                 },
             )
-            with urllib.request.urlopen(req, timeout=30) as resp:
+            with urllib.request.urlopen(req, timeout=REQUEST_TIMEOUT) as resp:
                 return resp.status, resp.read().decode("utf-8", "replace")
 
-        return fetch, "urllib"
+        backend = "urllib"
+
+    def fetch(url, data=None):
+        return with_retry(lambda: raw_fetch(url, data), label=url[:70])
+
+    return fetch, backend
 
 
 def clean(s):
@@ -244,19 +277,20 @@ SOURCES = {
 
 def crawl(source, fetch, max_pages):
     """Returns (items, error). `error` is None on full success, or a short string
-    describing what stopped this source (page + exception) — a page-fetch error
-    (timeout, connection reset, ...) stops this source early but keeps whatever was
-    already collected, instead of losing the other sources still queued behind it."""
+    describing what stopped this source (page + exception, after fetch()'s own
+    MAX_RETRIES retries were already exhausted for that request) — this stops the
+    source early but keeps whatever was already collected, instead of losing the
+    other sources still queued behind it."""
     pager = SOURCES[source]
     seen = {}
     for page in range(1, max_pages + 1):
         try:
             items, has_more = pager(fetch, page)
         except Exception as e:  # noqa: BLE001 — one bad page shouldn't lose pages already collected
-            error = f"page {page}: {e}"
+            error = f"page {page}: {e} (after {MAX_RETRIES} retries)"
             print(
-                f"[ir-search] {source} p{page}: error {e} — stopping this source, "
-                f"keeping {len(seen)} collected so far",
+                f"[ir-search] {source} p{page}: error {e} after {MAX_RETRIES} retries "
+                f"— stopping this source, keeping {len(seen)} collected so far",
                 file=sys.stderr,
             )
             return list(seen.values()), error
@@ -308,21 +342,23 @@ def cmd_detail(fetch, urls, outdir):
 
 def run_list(fetch, source, output, max_pages):
     """Collect one or all sources, write `output`, and (if any source failed)
-    write collection_errors.json next to it. Returns the process exit code:
-    0 on full success AND on partial success (>=1 item collected overall),
-    1 only when every source failed or the total collected is 0."""
+    write collection_errors.json next to it (message + retries attempted per
+    source). Returns the process exit code: 0 on full success AND on partial
+    success (>=1 item collected overall), 1 only when every source failed or
+    the total collected is 0."""
     names = list(SOURCES) if source == "all" else [source]
     out = []
-    errors = {}  # source -> error message
+    errors = {}  # source -> {"message": str, "retriesAttempted": int|str}
     for name in names:
         try:
             items, error = crawl(name, fetch, max_pages)
+            retries_attempted = MAX_RETRIES if error else 0
         except Exception as e:  # noqa: BLE001 — defense in depth if crawl() itself errors unexpectedly
             print(f"[ir-search] {name}: source failed entirely: {e}", file=sys.stderr)
-            items, error = [], str(e)
+            items, error, retries_attempted = [], str(e), "N/A (unexpected crash outside crawl())"
         out.extend(items)
         if error:
-            errors[name] = error
+            errors[name] = {"message": error, "retriesAttempted": retries_attempted}
         time.sleep(DELAY)
 
     with open(output, "w", encoding="utf-8") as f:
@@ -355,7 +391,7 @@ def run_list(fetch, source, output, max_pages):
     if errors:
         print(
             f"[ir-search] PARTIAL SUCCESS — {len(out)} items collected, "
-            f"failed sources: {', '.join(errors.keys())}",
+            f"failed sources (each retried {MAX_RETRIES}x): {', '.join(errors.keys())}",
             file=sys.stderr,
         )
         return 0
