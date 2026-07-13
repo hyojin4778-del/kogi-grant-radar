@@ -119,8 +119,17 @@ def cmd_list(args):
         )
     seen = {}
     page = 1
+    failed = False
     while page <= args.max_pages:
-        status, html = fetch(f"{BASE}?page={page}&schStr=&pbancEndYn=N")
+        try:
+            status, html = fetch(f"{BASE}?page={page}&schStr=&pbancEndYn=N")
+        except Exception as e:  # noqa: BLE001 — a network hiccup shouldn't lose pages already collected
+            print(
+                f"[ir-search] page {page}: error {e} — stopping, keeping {len(seen)} collected so far",
+                file=sys.stderr,
+            )
+            failed = True
+            break
         if status != 200:
             print(f"[ir-search] page {page}: HTTP {status} — stopping", file=sys.stderr)
             if backend == "urllib" and status in (403, 412):
@@ -145,6 +154,8 @@ def cmd_list(args):
         for i in seen.values():
             f.write(json.dumps(i, ensure_ascii=False) + "\n")
     print(f"[ir-search] saved: {args.output} ({len(seen)} items)", file=sys.stderr)
+    if failed:
+        sys.exit(1)
 
 
 def strip_html(text):

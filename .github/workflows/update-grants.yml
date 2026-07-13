@@ -36,11 +36,18 @@ jobs:
           mkdir -p "reports/raw/${{ steps.date.outputs.value }}"
           python3 collector/kstartup_crawl.py list -o "reports/raw/${{ steps.date.outputs.value }}/kstartup_all.jsonl"
 
+      # if: always() so a K-Startup failure (or vice versa) doesn't stop this independent
+      # source from being attempted — each collector already saves whatever it gathered
+      # before failing, instead of losing everything on one network hiccup.
       - name: Collect 기업마당/NIPA/KOCCA/SMTECH
+        if: always() && !cancelled()
         run: |
           python3 collector/sources_crawl.py list all -o "reports/raw/${{ steps.date.outputs.value }}/sources_all.jsonl" --max-pages 20
 
+      # Runs even if a collection step above failed, so partial results (e.g. K-Startup
+      # succeeded but 기업마당 timed out) still get committed instead of silently lost.
       - name: Commit raw snapshot if changed
+        if: always() && !cancelled()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"

@@ -241,10 +241,21 @@ SOURCES = {
 
 
 def crawl(source, fetch, max_pages):
+    """Returns (items, failed). A page-fetch error (timeout, connection reset, ...)
+    stops this source early but keeps whatever was already collected, instead of
+    losing the other sources still queued behind it in main()."""
     pager = SOURCES[source]
     seen = {}
     for page in range(1, max_pages + 1):
-        items, has_more = pager(fetch, page)
+        try:
+            items, has_more = pager(fetch, page)
+        except Exception as e:  # noqa: BLE001 — one bad page shouldn't lose pages already collected
+            print(
+                f"[ir-search] {source} p{page}: error {e} — stopping this source, "
+                f"keeping {len(seen)} collected so far",
+                file=sys.stderr,
+            )
+            return list(seen.values()), True
         new = [i for i in items if i["id"] not in seen]
         for i in items:
             seen[i["id"]] = i
@@ -255,7 +266,7 @@ def crawl(source, fetch, max_pages):
         if not has_more or not new:
             break
         time.sleep(DELAY)
-    return list(seen.values())
+    return list(seen.values()), False
 
 
 def strip_html(text):
@@ -328,13 +339,25 @@ def main():
 
     names = list(SOURCES) if args.source == "all" else [args.source]
     out = []
+    failed_sources = []
     for name in names:
-        out.extend(crawl(name, fetch, args.max_pages))
+        try:
+            items, source_failed = crawl(name, fetch, args.max_pages)
+        except Exception as e:  # noqa: BLE001 — defense in depth if crawl() itself errors unexpectedly
+            print(f"[ir-search] {name}: source failed entirely: {e}", file=sys.stderr)
+            failed_sources.append(name)
+            continue
+        out.extend(items)
+        if source_failed:
+            failed_sources.append(name)
         time.sleep(DELAY)
     with open(args.output, "w", encoding="utf-8") as f:
         for i in out:
             f.write(json.dumps(i, ensure_ascii=False) + "\n")
-    print(f"[ir-search] saved: {args.output} ({len(out)} items)", file=sys.stderr)
+    status = "OK" if not failed_sources else f"PARTIAL (failed: {', '.join(failed_sources)})"
+    print(f"[ir-search] saved: {args.output} ({len(out)} items) — {status}", file=sys.stderr)
+    if failed_sources:
+        sys.exit(1)
 
 
 if __name__ == "__main__":
