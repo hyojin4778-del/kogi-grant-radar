@@ -484,8 +484,8 @@ def run_list(fetch, source, output, max_pages):
         for i in out:
             f.write(json.dumps(i, ensure_ascii=False) + "\n")
 
+    errors_path = os.path.join(os.path.dirname(output) or ".", "collection_errors.json")
     if errors:
-        errors_path = os.path.join(os.path.dirname(output) or ".", "collection_errors.json")
         with open(errors_path, "w", encoding="utf-8") as f:
             json.dump(
                 {
@@ -500,6 +500,14 @@ def run_list(fetch, source, output, max_pages):
                 indent=2,
             )
         print(f"[ir-search] failed sources logged: {errors_path}", file=sys.stderr)
+    else:
+        # All sources succeeded this run — a collection_errors.json left over from an
+        # earlier failed run would otherwise linger and misreport today as failed.
+        try:
+            os.remove(errors_path)
+            print(f"[ir-search] all sources succeeded — removed stale {errors_path}", file=sys.stderr)
+        except FileNotFoundError:
+            pass
 
     print(f"[ir-search] saved: {output} ({len(out)} items)", file=sys.stderr)
 
