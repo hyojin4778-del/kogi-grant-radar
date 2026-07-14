@@ -1,0 +1,10 @@
+# Vercel deploys api/*.js (serverless functions) + public/ (static) only.
+# These are Render/local-dev-only or collection-pipeline-only files that
+# don't belong in the Vercel bundle — server.js in particular must NOT be
+# picked up as an accidental duplicate Express function (Vercel auto-detects
+# it via the "express" dependency otherwise, doubling up with api/*.js).
+server.js
+collector/
+requirements.txt
+render.yaml
+reports/raw/
