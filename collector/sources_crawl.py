@@ -39,6 +39,12 @@ REQUEST_TIMEOUT = 45  # seconds per HTTP request (was 30 — GitHub-hosted runne
 MAX_RETRIES = 2  # extra attempts after the first (3 total tries) per request
 BACKOFF_BASE = 3  # seconds; exponential backoff between retries: 3s, 6s
 
+# Last-known-good cache: when a source fails today, we backfill from whatever it
+# collected last time it fully succeeded, instead of reporting a hard 0 for that
+# source. Lives at a fixed path (not under the dated reports/raw/<date>/ folder)
+# so it survives across daily runs — the GH Actions workflow commits it back.
+LATEST_GOOD_DIR = "reports/raw/_latest_good"
+
 
 def with_retry(fn, *, retries=MAX_RETRIES, backoff_base=BACKOFF_BASE, label="request"):
     """Call fn() with up to `retries` extra attempts on exception, sleeping
@@ -307,6 +313,67 @@ def crawl(source, fetch, max_pages):
     return list(seen.values()), None
 
 
+def load_latest_good(source):
+    """Read the last successful collection for `source` from LATEST_GOOD_DIR.
+
+    Returns (items, collected_at, reason):
+      - (items, iso_timestamp, None) if a usable cache exists
+      - (None, None, reason) if there's no cache yet, it's empty, or it fails
+        to parse — callers must treat this as "no fallback available", not
+        crash the source.
+    """
+    jsonl_path = os.path.join(LATEST_GOOD_DIR, f"{source}.jsonl")
+    if not os.path.exists(jsonl_path):
+        return None, None, "no cache file"
+    try:
+        items = []
+        with open(jsonl_path, encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
+                if line:
+                    items.append(json.loads(line))
+    except (OSError, json.JSONDecodeError) as e:
+        return None, None, f"cache file unreadable/corrupted: {e}"
+    if not items:
+        return None, None, "cache file empty"
+
+    collected_at = None
+    meta_path = os.path.join(LATEST_GOOD_DIR, "meta.json")
+    try:
+        if os.path.exists(meta_path):
+            with open(meta_path, encoding="utf-8") as f:
+                meta = json.load(f)
+            collected_at = (meta.get(source) or {}).get("collectedAt")
+    except (OSError, json.JSONDecodeError):
+        pass  # missing/corrupted meta doesn't invalidate the data itself — date just unknown
+
+    return items, collected_at, None
+
+
+def save_latest_good(source, items, collected_at_iso):
+    """Overwrite the last-known-good cache for `source` after a fully successful
+    collection. Only called when a source has zero errors — a partial/failed
+    run must never clobber a previously good cache with incomplete data."""
+    os.makedirs(LATEST_GOOD_DIR, exist_ok=True)
+    jsonl_path = os.path.join(LATEST_GOOD_DIR, f"{source}.jsonl")
+    with open(jsonl_path, "w", encoding="utf-8") as f:
+        for i in items:
+            clean = {k: v for k, v in i.items() if k != "is_fallback"}
+            f.write(json.dumps(clean, ensure_ascii=False) + "\n")
+
+    meta_path = os.path.join(LATEST_GOOD_DIR, "meta.json")
+    meta = {}
+    if os.path.exists(meta_path):
+        try:
+            with open(meta_path, encoding="utf-8") as f:
+                meta = json.load(f)
+        except (OSError, json.JSONDecodeError):
+            meta = {}
+    meta[source] = {"collectedAt": collected_at_iso, "itemCount": len(items)}
+    with open(meta_path, "w", encoding="utf-8") as f:
+        json.dump(meta, f, ensure_ascii=False, indent=2)
+
+
 def strip_html(text):
     text = re.sub(r"<script[\s\S]*?</script>|<style[\s\S]*?</style>", "", text)
     text = re.sub(r"<[^>]+>", "\n", text)
@@ -345,10 +412,18 @@ def run_list(fetch, source, output, max_pages):
     write collection_errors.json next to it (message + retries attempted per
     source). Returns the process exit code: 0 on full success AND on partial
     success (>=1 item collected overall), 1 only when every source failed or
-    the total collected is 0."""
+    the total collected is 0.
+
+    A source that errors falls back to its LATEST_GOOD_DIR cache (last fully
+    successful collection) so a transient block/timeout doesn't zero out that
+    source for the day. Any items the failing source did manage to collect
+    today are kept as-is (they're fresher than the cache) and the cache only
+    fills the gap, deduplicated by id/url so nothing appears twice. A source
+    that succeeds today never touches the cache except to refresh it."""
     names = list(SOURCES) if source == "all" else [source]
     out = []
-    errors = {}  # source -> {"message": str, "retriesAttempted": int|str}
+    errors = {}  # source -> {"message", "retriesAttempted", "fallbackApplied", ...}
+    run_started_at = datetime.now(timezone.utc).isoformat()
     for name in names:
         try:
             items, error = crawl(name, fetch, max_pages)
@@ -356,9 +431,53 @@ def run_list(fetch, source, output, max_pages):
         except Exception as e:  # noqa: BLE001 — defense in depth if crawl() itself errors unexpectedly
             print(f"[ir-search] {name}: source failed entirely: {e}", file=sys.stderr)
             items, error, retries_attempted = [], str(e), "N/A (unexpected crash outside crawl())"
-        out.extend(items)
+
+        for i in items:
+            i["is_fallback"] = False
+
         if error:
-            errors[name] = {"message": error, "retriesAttempted": retries_attempted}
+            cached_items, cached_at, cache_reason = load_latest_good(name)
+            if cached_items:
+                today_keys = {i.get("id") or i.get("url") for i in items}
+                fallback_items = [
+                    {**ci, "is_fallback": True, "original_collected_at": cached_at}
+                    for ci in cached_items
+                    if (ci.get("id") or ci.get("url")) not in today_keys
+                ]
+                items = items + fallback_items
+                print(
+                    f"[ir-search] {name}: fallback applied — {len(fallback_items)} items "
+                    f"from last successful collection ({cached_at})",
+                    file=sys.stderr,
+                )
+                errors[name] = {
+                    "message": error,
+                    "retriesAttempted": retries_attempted,
+                    "fallbackApplied": True,
+                    "fallbackItemCount": len(fallback_items),
+                    "fallbackOriginalCollectedAt": cached_at,
+                    "latestGoodCacheAvailable": True,
+                }
+            else:
+                print(
+                    f"[ir-search] {name}: no fallback data available ({cache_reason}) "
+                    f"— keeping {len(items)} item(s) collected today",
+                    file=sys.stderr,
+                )
+                errors[name] = {
+                    "message": f"{error} (fallback cache unavailable: {cache_reason})",
+                    "retriesAttempted": retries_attempted,
+                    "fallbackApplied": False,
+                    "fallbackItemCount": 0,
+                    "fallbackOriginalCollectedAt": None,
+                    "latestGoodCacheAvailable": False,
+                }
+        elif items:
+            # Only a fully-clean source's data is trustworthy enough to become
+            # tomorrow's fallback — a partial run must not overwrite a good cache.
+            save_latest_good(name, items, run_started_at)
+
+        out.extend(items)
         time.sleep(DELAY)
 
     with open(output, "w", encoding="utf-8") as f:
@@ -370,7 +489,7 @@ def run_list(fetch, source, output, max_pages):
         with open(errors_path, "w", encoding="utf-8") as f:
             json.dump(
                 {
-                    "checkedAt": datetime.now(timezone.utc).isoformat(),
+                    "checkedAt": run_started_at,
                     "totalCollected": len(out),
                     "succeededSources": [n for n in names if n not in errors],
                     "failedSources": list(errors.keys()),
