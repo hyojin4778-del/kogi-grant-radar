@@ -61,7 +61,12 @@
       "url": "https://www.k-startup.go.kr/web/contents/bizpbanc-ongoing.do?schM=view&pbancSn=178481",
 
       // 상세페이지를 실제로 열어 검증했으면 그 시각, 목록 단계에서만 걸러졌으면 null
-      "verifiedAt": "2026-07-13T09:10:00+09:00"
+      "verifiedAt": "2026-07-13T09:10:00+09:00",
+
+      // true면 collector/auto_classify.py가 매긴 잠정 등급(사람 미검증) — 없으면 사람이 검증한 것.
+      // 대시보드는 이 필드로 "자동 판정" 배지를 표시한다.
+      "autoClassified": false
+      // "autoClassifiedAt": "2026-07-14T09:00:12+09:00"  — autoClassified:true일 때만 존재
     }
   ]
 }

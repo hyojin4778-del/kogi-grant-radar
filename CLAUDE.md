@@ -25,14 +25,30 @@ ir-search 스킬(전역 설치됨)의 워크플로를 따르되, **이 프로젝
 
 ## `reports/raw/<날짜>/`는 건드리지 않는다
 
-GitHub Actions(`.github/workflows/update-grants.yml`)가 매일 자동으로 5개 소스 원시 목록만
-`reports/raw/<YYYY-MM-DD>/`에 커밋한다 (분류 없음, LLM 미사용). 이건 "재조사" 요청과 무관한
-별도의 자동 수집 로그이니, 재조사 시 이 폴더를 참조하거나 덮어쓸 필요 없다 — 재조사는 항상
-그 시점에 크롤러를 새로 실행한다.
+GitHub Actions(`.github/workflows/update-grants.yml`)가 매일(KST 09:00) 5개 소스 원시 목록을
+`reports/raw/<YYYY-MM-DD>/`에 커밋한다. 이건 "재조사" 요청과 무관한 별도의 자동 수집 로그이니,
+재조사 시 이 폴더를 참조하거나 덮어쓸 필요 없다 — 재조사는 항상 그 시점에 크롤러를 새로 실행한다.
+
+## `data/latest.json`은 두 경로로 갱신된다 — 우선순위를 알아둘 것
+
+1. **사람/Claude 판단 (권위 있음)** — 위 "재조사해줘" 워크플로. 상세페이지를 실제로 읽고 판단한
+   결과이며 `autoClassified` 필드가 없다.
+2. **자동 판정 (매일, 무인, 잠정)** — `.github/workflows/update-grants.yml`이 원시 수집 직후
+   `collector/auto_classify.py`를 실행해 그날 새로 나타난 공고에만 규칙 기반 임시 A/B/C 등급을
+   매긴다(`autoClassified: true`, `groupReason`/`eligibility.note`에 "[자동 판정]" 접두). 이 규칙은
+   `ir-search-profile.md`의 KOGI 조건(예비창업자·수도권·하드웨어 소비재)을 명시적 키워드 조건문으로
+   인코딩한 것으로, **결정론적 점수 합산이 아니다** — 아래 "하지 말아야 할 것" 항목은 여전히
+   `matchingEngine.js` 같은 점수 알고리즘 신설을 금지하지만, 이 명시적 규칙 기반 임시 분류는 사용자
+   승인 하에 예외로 도입되었다(2026-07-14).
+   **`auto_classify.py`는 이미 사람이 분류한 공고(`autoClassified`가 없는 항목)를 절대 덮어쓰지
+   않는다** — id가 겹치면 항상 사람 판단이 남는다. "재조사해줘"를 실행하면 그 공고의 자동 판정은
+   사람 판단으로 교체된다.
 
 ## 하지 말아야 할 것
 
-- `matchingEngine.js` 같은 결정론적 점수 알고리즘을 새로 만들지 않는다 — A/B/C 분류는 상세검증
-  원문에 기반한 판단이지 키워드 점수가 아니다.
+- `matchingEngine.js` 같은 "점수를 더해서 등급을 매기는" 알고리즘을 새로 만들지 않는다 —
+  ir-search의 A/B/C 분류는 상세검증 원문에 기반한 판단이지 키워드 점수가 아니다.
+  (`collector/auto_classify.py`는 예외로 승인된 별도 경로이며, 그마저도 점수 합산이 아니라
+  명시적 조건문이고 사람 판단을 덮어쓰지 않는다 — 위 섹션 참고.)
 - 확인되지 않은 자격요건·금액·마감일을 추정해서 채우지 않는다 ("확인 필요"로 남긴다).
 - `data/latest.json` 필드명을 임의로 바꾸지 않는다 (`public/app.js`가 그 필드명을 그대로 참조).

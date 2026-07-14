@@ -90,6 +90,7 @@ h1 { font-size: 22px; margin: 0; }
 .badge-group.group-C { color: var(--group-c); border-color: var(--group-c); }
 .badge-status.status-모집중 { color: var(--group-a); border-color: var(--group-a); }
 .badge-status.status-마감임박 { color: var(--group-b); border-color: var(--group-b); }
+.badge-auto { color: #9333ea; border-color: #9333ea; background: #f5f0ff; }
 
 .card-title { font-size: 15px; margin: 0 0 4px; line-height: 1.4; }
 .card-org { font-size: 13px; color: var(--muted); margin: 0 0 6px; }
@@ -97,7 +98,8 @@ h1 { font-size: 22px; margin: 0; }
 
 .empty-state { text-align: center; color: var(--muted); padding: 40px 0; }
 
-.modal { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 10; }
+.modal { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; z-index: 10; }
+.modal:not([hidden]) { display: flex; }
 .modal-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.4); }
 .modal-panel {
   position: relative;
@@ -128,4 +130,5 @@ h1 { font-size: 22px; margin: 0; }
   }
   .chip-active { background: #1e3a5f; }
   .modal-reason { background: #262a33; }
+  .badge-auto { background: #2a1f3d; color: #c084fc; border-color: #7e22ce; }
 }

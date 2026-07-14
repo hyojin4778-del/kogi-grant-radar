@@ -1,8 +1,9 @@
-# 매일 1회 K-Startup·기업마당·NIPA·KOCCA·SMTECH의 "모집중" 원시 목록만 수집해
-# reports/raw/<날짜>/에 커밋합니다. 분류(A/B/C)나 상세검증은 여기서 하지 않습니다 —
-# 그건 ir-search 워크플로처럼 사람/Claude의 판단이 필요한 단계라 무인 실행할 수
-# 없습니다 (자세한 내용은 프로젝트 루트 CLAUDE.md 참고). 실제 대시보드에 뜨는
-# data/latest.json은 Claude Code에서 "지원사업 재조사해줘"라고 요청했을 때만 갱신됩니다.
+# 매일 1회 K-Startup·기업마당·NIPA·KOCCA·SMTECH의 "모집중" 원시 목록을 수집해
+# reports/raw/<날짜>/에 커밋하고, collector/auto_classify.py로 새로 나타난 공고에
+# 한해 규칙 기반 임시 A/B/C 등급("자동 판정")을 매겨 data/latest.json에 반영합니다.
+# ir-search("지원사업 재조사해줘")가 사람/Claude 판단으로 이미 분류해 둔 공고는
+# auto_classify.py가 절대 덮어쓰지 않습니다 — 자세한 내용은 프로젝트 루트
+# CLAUDE.md와 collector/auto_classify.py 상단 docstring 참고.
 name: Collect raw grant listings
 
 on:
@@ -44,14 +45,29 @@ jobs:
         run: |
           python3 collector/sources_crawl.py list all -o "reports/raw/${{ steps.date.outputs.value }}/sources_all.jsonl" --max-pages 20
 
-      # Runs even if a collection step above failed, so partial results (e.g. K-Startup
-      # succeeded but 기업마당 timed out) still get committed instead of silently lost.
-      - name: Commit raw snapshot if changed
+      # Gives brand-new announcements a provisional "자동 판정" grade so the dashboard
+      # doesn't sit unchanged between manual ir-search surveys. Never touches grants that
+      # a real ir-search survey already classified (see auto_classify.py's merge rule).
+      # if: always() so it still runs — and preserves existing data/latest.json — even if
+      # one of the two collection steps above partially or fully failed.
+      - name: Auto-classify new listings into dashboard data
+        if: always() && !cancelled()
+        run: |
+          python3 collector/auto_classify.py \
+            --kstartup "reports/raw/${{ steps.date.outputs.value }}/kstartup_all.jsonl" \
+            --sources "reports/raw/${{ steps.date.outputs.value }}/sources_all.jsonl" \
+            --output data/latest.json \
+            --summary-output "reports/raw/${{ steps.date.outputs.value }}/auto_classify_summary.json"
+
+      # Runs even if a step above failed, so partial results (e.g. K-Startup succeeded but
+      # 기업마당 timed out) and any auto-classify update still get committed instead of lost.
+      - name: Commit raw snapshot and dashboard data if changed
         if: always() && !cancelled()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add "reports/raw/${{ steps.date.outputs.value }}"
           git add "reports/raw/_latest_good"
-          git diff --cached --quiet && echo "No changes, skipping commit" || git commit -m "chore: raw grant collection ${{ steps.date.outputs.value }}"
+          git add "data/latest.json"
+          git diff --cached --quiet && echo "No changes, skipping commit" || git commit -m "chore: raw grant collection + auto-classify ${{ steps.date.outputs.value }}"
           git push

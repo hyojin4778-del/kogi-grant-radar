@@ -142,6 +142,7 @@ function renderList() {
           <span class="badge badge-source">${escapeHtml(g.source || "확인 필요")}</span>
           <span class="badge badge-group group-${escapeHtml(g.group || "")}">${escapeHtml(g.group || "?")}</span>
           <span class="badge badge-status status-${escapeHtml(status)}">${escapeHtml(status)}</span>
+          ${g.autoClassified ? `<span class="badge badge-auto" title="상세페이지 미검증 — 규칙 기반 임시 등급">자동 판정</span>` : ""}
         </div>
         <h3 class="card-title">${escapeHtml(g.title)}</h3>
         <p class="card-org">${escapeHtml(g.organization || "확인 필요")}</p>
@@ -165,6 +166,7 @@ function openDetail(id) {
       <span class="badge badge-source">${escapeHtml(g.source || "확인 필요")}</span>
       <span class="badge badge-group group-${escapeHtml(g.group || "")}">${escapeHtml(GROUP_LABEL[g.group] || g.group || "?")}</span>
       <span class="badge badge-status status-${escapeHtml(status)}">${escapeHtml(status)}</span>
+      ${g.autoClassified ? `<span class="badge badge-auto" title="상세페이지 미검증 — 규칙 기반 임시 등급">자동 판정</span>` : ""}
     </div>
     <h2>${escapeHtml(g.title)}</h2>
     <p class="modal-org">${escapeHtml(g.organization || "확인 필요")}</p>
