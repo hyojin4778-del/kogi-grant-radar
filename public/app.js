@@ -14,7 +14,7 @@ const state = {
   search: "",
   sources: new Set(),
   groups: new Set(["A", "B", "C"]), // 제외는 기본 숨김, 토글로 확인
-  statuses: new Set(STATUS_ORDER),
+  statuses: new Set(["모집중", "마감임박", "확인 필요"]), // 마감은 기본 숨김, 토글로 확인
 };
 
 function escapeHtml(str) {
@@ -26,17 +26,20 @@ function escapeHtml(str) {
 function $(id) { return document.getElementById(id); }
 
 function computeStatus(grant) {
+  if (grant.applicationEndDate) {
+    const end = new Date(grant.applicationEndDate);
+    if (!Number.isNaN(end.getTime())) {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      end.setHours(0, 0, 0, 0);
+      const days = Math.round((end - today) / 86400000);
+      if (days < 0) return "마감";
+      if (days <= 3) return "마감임박";
+      return "모집중";
+    }
+  }
   if (grant.status) return grant.status;
-  if (!grant.applicationEndDate) return "확인 필요";
-  const end = new Date(grant.applicationEndDate);
-  if (Number.isNaN(end.getTime())) return "확인 필요";
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  end.setHours(0, 0, 0, 0);
-  const days = Math.round((end - today) / 86400000);
-  if (days < 0) return "마감";
-  if (days <= 3) return "마감임박";
-  return "모집중";
+  return "확인 필요";
 }
 
 async function fetchGrants() {
