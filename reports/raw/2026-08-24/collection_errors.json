@@ -1,0 +1,22 @@
+{
+  "checkedAt": "2026-08-24T00:50:04.230936+00:00",
+  "totalCollected": 569,
+  "succeededSources": [
+    "bizinfo",
+    "nipa",
+    "kocca"
+  ],
+  "failedSources": [
+    "smtech"
+  ],
+  "errors": {
+    "smtech": {
+      "message": "page 1: Failed to perform, curl: (28) Connection timed out after 45000 milliseconds. See https://curl.se/libcurl/c/libcurl-errors.html first for more details. (after 2 retries)",
+      "retriesAttempted": 2,
+      "fallbackApplied": true,
+      "fallbackItemCount": 60,
+      "fallbackOriginalCollectedAt": "2026-08-23T00:51:56.353567+00:00",
+      "latestGoodCacheAvailable": true
+    }
+  }
+}
