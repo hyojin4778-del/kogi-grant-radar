@@ -4,15 +4,15 @@
     "itemCount": 300
   },
   "nipa": {
-    "collectedAt": "2026-09-01T02:53:26.234696+00:00",
+    "collectedAt": "2026-09-02T02:13:45.574378+00:00",
     "itemCount": 200
   },
   "kocca": {
-    "collectedAt": "2026-08-31T02:41:16.526307+00:00",
-    "itemCount": 9
+    "collectedAt": "2026-09-02T02:13:45.574378+00:00",
+    "itemCount": 5
   },
   "smtech": {
-    "collectedAt": "2026-09-01T02:53:26.234696+00:00",
+    "collectedAt": "2026-09-02T02:13:45.574378+00:00",
     "itemCount": 60
   }
 }
