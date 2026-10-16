@@ -1,0 +1,30 @@
+{
+  "checkedAt": "2026-10-16T02:31:01.281786+00:00",
+  "totalCollected": 610,
+  "succeededSources": [
+    "nipa",
+    "kocca"
+  ],
+  "failedSources": [
+    "bizinfo",
+    "smtech"
+  ],
+  "errors": {
+    "bizinfo": {
+      "message": "page 1: Failed to perform, curl: (28) Connection timed out after 45002 milliseconds. See https://curl.se/libcurl/c/libcurl-errors.html first for more details. (after 2 retries)",
+      "retriesAttempted": 2,
+      "fallbackApplied": true,
+      "fallbackItemCount": 300,
+      "fallbackOriginalCollectedAt": "2026-10-15T02:35:52.549901+00:00",
+      "latestGoodCacheAvailable": true
+    },
+    "smtech": {
+      "message": "page 1: Failed to perform, curl: (28) Connection timed out after 45000 milliseconds. See https://curl.se/libcurl/c/libcurl-errors.html first for more details. (after 2 retries)",
+      "retriesAttempted": 2,
+      "fallbackApplied": true,
+      "fallbackItemCount": 103,
+      "fallbackOriginalCollectedAt": "2026-10-15T02:35:52.549901+00:00",
+      "latestGoodCacheAvailable": true
+    }
+  }
+}
