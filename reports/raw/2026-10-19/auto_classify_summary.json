@@ -1,0 +1,13 @@
+{
+  "checkedAt": "2026-10-19T11:39:14.770162+09:00",
+  "added": 2,
+  "refreshed": 737,
+  "skippedHumanVerified": 3,
+  "total": 4545,
+  "counts": {
+    "A": 29,
+    "B": 1216,
+    "C": 3276,
+    "제외": 24
+  }
+}
