@@ -1,18 +1,18 @@
 {
   "bizinfo": {
-    "collectedAt": "2026-11-03T04:47:18.345065+00:00",
+    "collectedAt": "2026-11-04T04:12:26.645869+00:00",
     "itemCount": 300
   },
   "nipa": {
-    "collectedAt": "2026-11-03T04:47:18.345065+00:00",
+    "collectedAt": "2026-11-04T04:12:26.645869+00:00",
     "itemCount": 200
   },
   "kocca": {
-    "collectedAt": "2026-11-03T04:47:18.345065+00:00",
-    "itemCount": 6
+    "collectedAt": "2026-11-04T04:12:26.645869+00:00",
+    "itemCount": 5
   },
   "smtech": {
-    "collectedAt": "2026-11-03T04:47:18.345065+00:00",
+    "collectedAt": "2026-11-04T04:12:26.645869+00:00",
     "itemCount": 67
   }
 }
