@@ -1,10 +1,10 @@
 {
   "bizinfo": {
-    "collectedAt": "2026-11-16T04:04:10.855333+00:00",
+    "collectedAt": "2026-11-17T05:54:51.159183+00:00",
     "itemCount": 300
   },
   "nipa": {
-    "collectedAt": "2026-11-16T04:04:10.855333+00:00",
+    "collectedAt": "2026-11-17T05:54:51.159183+00:00",
     "itemCount": 200
   },
   "kocca": {
@@ -12,7 +12,7 @@
     "itemCount": 3
   },
   "smtech": {
-    "collectedAt": "2026-11-16T04:04:10.855333+00:00",
-    "itemCount": 67
+    "collectedAt": "2026-11-17T05:54:51.159183+00:00",
+    "itemCount": 68
   }
 }
